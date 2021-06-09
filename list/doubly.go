@@ -210,11 +210,11 @@ func (l *List) Reverse2() {
    var current *Node = l.head
    l.tail = l.head
    
-   for current != nil {
-        prev = current.prev
-        current.prev = current.next
-        current.next = prev          
-        current = current.prev
+   for n != nil {
+        prev = n.prev
+        n.prev = n.next
+        n.next = prev          
+        n = n.prev
    } 
    
    if prev != nil {
@@ -345,5 +345,4 @@ func (l *List) move(node, mark *Node, position string) {
 
 //         1                            2                  3
 //<- prev <=> next->           <- prev <=> next-> <- prev <=> next->
-
 
