@@ -12,6 +12,8 @@ import (
     
     //"github.com/golang/groupcache"                   //lru\consistenthash                                                                                                                                                                      10K stars
     //"github.com/Workiva/go-datastructures"          // fibheap\queue\set\skiplist\btree\bitarray\augmentedtree\rtree\rangetree\tree-avl\hashmap\trie\graph                                                                                     6K stars
+   
+   // по числу звездочек на гитхабе самая мощная библиотека;
    //"github.com/emirpasic/gods                       //SinglyLinkedList\DoublyLinkedList\HashSet\TreeSet\\LinkedHashSet\LinkedListStack\ArrayStack\HashMap\TreeMap\LinkedHashMap\HashBidiMap\TreeBidiMap\RedBlackTree\AVLTree\BTree\BinaryHeap  10K stars
 
     
@@ -24,17 +26,22 @@ import (
    // "github.com/Workiva/go-datastructures/set"      //simple unordered set implemented with a map. Add/Remove/Exists/All
     "github.com/xtgo/set"                             // unordered set implemented with a map: Diff/SymDiff/Inter/Union/IsSub/IsSuper
     //"github.com/goware/set"               // основан на xtgo/set 
-    //"github.com/deckarep/golang-set"     // unordered set implemented with a map:                        Add/Remove/Pop/Contains/Difference/SymmetricDifference/Intersection/Union/IsSubSet/IsSuperSet  etc.
-    "github.com/zoumo/goset"               // unordered set implemented with a map (почти как golang-set): Add/Remove/Pop/Contains/Diff/SymmetricDiff/Intersection/Unite/IsSubSetOf/IsSuperSetOf  etc.
+    
+    // 2k звезд на гитхабе
+    //"github.com/deckarep/golang-set"     // unordered set implemented with a map:                        Add/Remove/Pop/Contains/Difference/SymmetricDifference/Intersect/Union/IsSubSet/IsSuperSet/Cardinality/CartesianProduct/Each/Iter  etc.
+    
+    // same as golang-set - можно использовать не интерфейсные типы
+    "github.com/zoumo/goset"               // unordered set implemented with a map (почти как golang-set): Add/Remove/Pop/Contains/Diff/SymmetricDiff/Intersect/Unite/IsSubSetOf/IsSuperSetOf  etc.
+    
     "github.com/scylladb/go-set/strset"    // unordered set implemented with a map:                        Add/Remove/Pop/Has/Difference/SymmetricDifference/Intersection/Union/IsSubSet/IsSuperSet
      
     
      //"github.com/liyue201/gostl/algorithm"   //     sort(quick_sort)\stable_sort(merge_sort)\binary_search\lower_bound\upper_bound\next_permutation\nth_element\swap\reverse\count\count_if\find\find_if
-    //"github.com/liyue201/gostl/ds"           //     slice\array\vector\list\deque\queue\priority_queue\stack\rbtree(red_black_tree)\map/multimap\set/multiset\bitmap\bloom_filter\hamt(hash_array_mapped_trie)\ketama\skiplist 
+    //"github.com/liyue201/gostl/ds"           //     slice\array\vector\list\deque\queue\priority_queue\stack\rbtree(red_black_tree)\map\multimap\set\multiset\bitmap\bloom_filter\hamt(hash_array_mapped_trie)\ketama\skiplist 
 
     
-     // по числу звездочек на гитхабе самая мощная библиотека; в типе set не реализованы базовые diff\union\inter  операции
-     // "github.com/emirpasic/gods"
+     // в типе set не реализованы базовые diff\union\inter  операции
+     // "github.com/emirpasic/gods/hashset"   Agg/Remove/Contains/Empty/Clear/Size
      
      // "github.com/itrabbit/go-stp"
     

@@ -85,7 +85,7 @@ func (set *Set) SymDiff(other *Set) (diff *Set) {
 func (set *Set) Union(other *Set) {
 
     for v := range *other {
-        (*set)[v] = void{}
+        set.Add(v)
     }
 }
 
@@ -94,7 +94,7 @@ func (set *Set) Union1(other *Set) {
 
     diff := other.Diff(set)
     for v := range *diff {
-        (*set)[v] = void{}
+        set.Add(v)
     }
 }
 
@@ -144,7 +144,7 @@ func (set *Set) UnionNew2(other *Set) (union *Set) {
         diff = set.Diff(other)
     }
     for v := range *diff {
-        (*union)[v] = void{}
+        union.Add(v)
     }
 
     return
@@ -187,5 +187,4 @@ func (set *Set) Pop() (item interface{}) {
     }
     return nil
 }
-
 

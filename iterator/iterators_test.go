@@ -24,7 +24,7 @@ func Test(t *testing.T) {
     
     
     
-    strColl := StringCollection(strSlice) // приведение к типу
+    strColl := StringCollection(strSlice) // РїСЂРёРІРµРґРµРЅРёРµ Рє С‚РёРїСѓ
     strIt := strColl.Iter()
     for strIt.Next() { 
        fmt.Println(it.Index(), it.Value().(string))
