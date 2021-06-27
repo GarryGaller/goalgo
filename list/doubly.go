@@ -207,7 +207,7 @@ func (l *List) RemoveNode(node *Node) {
 
 func (l *List) Reverse2() {
    var prev *Node
-   var current *Node = l.head
+   var n *Node = l.head
    l.tail = l.head
    
    for n != nil {
@@ -345,4 +345,3 @@ func (l *List) move(node, mark *Node, position string) {
 
 //         1                            2                  3
 //<- prev <=> next->           <- prev <=> next-> <- prev <=> next->
-

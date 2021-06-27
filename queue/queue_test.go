@@ -1,13 +1,14 @@
-package queue
+package queue_test
 
 import (
     "fmt"
     "testing"
+    "github.com/GarryGaller/goalgo/queue"
 )
 
 
 func Test(t *testing.T) {
-    queue := New()
+    queue := queue.New()
     fmt.Println(queue.Front())
     fmt.Println(queue.String(), queue.Size())
     queue.Enqueue(1)
@@ -15,7 +16,7 @@ func Test(t *testing.T) {
     queue.Enqueue(2)
     queue.Enqueue(3.5)
     queue.Enqueue(4)
-    queue.Enqueue("сто")
+    queue.Enqueue("СЃС‚Рѕ")
     queue.Enqueue("qwerty")
     fmt.Println(queue.Dequeue())
 

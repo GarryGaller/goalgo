@@ -13,8 +13,8 @@ import (
     //"github.com/golang/groupcache"                   //lru\consistenthash                                                                                                                                                                      10K stars
     //"github.com/Workiva/go-datastructures"          // fibheap\queue\set\skiplist\btree\bitarray\augmentedtree\rtree\rangetree\tree-avl\hashmap\trie\graph                                                                                     6K stars
    
-   // по числу звездочек на гитхабе самая мощная библиотека;
-   //"github.com/emirpasic/gods                       //SinglyLinkedList\DoublyLinkedList\HashSet\TreeSet\\LinkedHashSet\LinkedListStack\ArrayStack\HashMap\TreeMap\LinkedHashMap\HashBidiMap\TreeBidiMap\RedBlackTree\AVLTree\BTree\BinaryHeap  10K stars
+   // по числу звездочек на гитхабе самая мощная библиотека - 10k звезд;
+   //"github.com/emirpasic/gods"                       //SinglyLinkedList\DoublyLinkedList\HashSet\TreeSet\\LinkedHashSet\LinkedListStack\ArrayStack\HashMap\TreeMap\LinkedHashMap\HashBidiMap\TreeBidiMap\RedBlackTree\AVLTree\BTree\BinaryHeap  10K stars
 
     
     "github.com/emirpasic/gods/maps/hashbidimap"

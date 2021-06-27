@@ -1,12 +1,11 @@
-
-package main
+package numbers
 
 import (
-    "fmt"
-    "sort"
-    
+    //"fmt"
+    "math"
+    "math/rand"
+    //"sort"
 )
-
 
 // Swap two array values given their indices.
 func Swap(v interface{}, i, j int) {
@@ -31,9 +30,6 @@ func SwapString(a []string, i, j int) {
     a[i] = a[j]
     a[j] = tmp
 }
-
-
-
 
 func mergeSortedArray(a1, a2 []int) []int {
     out := []int{}
@@ -64,8 +60,6 @@ func mergeSortedArray(a1, a2 []int) []int {
     return out
 }
 
-
-
 // Mimax returns min and max from a list of integers.
 func Mimax(nums ...int) (int, int) {
     min, max := nums[0], nums[0]
@@ -83,15 +77,70 @@ func Mimax(nums ...int) (int, int) {
     return min, max
 }
 
+// Min returns min from a list of integers.
+func Min(nums ...int) int {
+    min := nums[0]
 
-func removeDuplicates(a []int) int {
+    for _, num := range nums {
+        if min > num {
+            min = num
+        }
+    }
+
+    return min
+}
+
+// Max returns max from a list of integers.
+func Max(nums ...int) int {
+    max := nums[0]
+
+    for _, num := range nums {
+        if max < num {
+            max = num
+        }
+    }
+
+    return max
+}
+
+// Random rertuns a random number over a range
+func Random(min, max int) int {
+    if min == max {
+        return min
+    }
+    return rand.Intn(max-min) + min
+}
+
+// Contain checks if the target is in a slice.
+func Contain(s []int, target int) bool {
+    for _, v := range s {
+        if v == target {
+            return true
+        }
+    }
+
+    return false
+}
+
+// ContainString checks if the target is in a slice.
+func ContainString(s []string, target string) bool {
+    for _, v := range s {
+        if v == target {
+            return true
+        }
+    }
+
+    return false
+}
+
+func RemoveDuplicates(a []int) int {
     /*only for sorted arrays*/
-    
+
     if len(a) == 0 {
         return 0
     }
 
-    n:= 1
+    n := 1
     i := 1
     for i < len(a) {
         // if we see a non-duplicate number, move it next to the last
@@ -101,15 +150,14 @@ func removeDuplicates(a []int) int {
             n++
         }
         i++
-        
+
     }
 
     return n
 }
 
+func Deduplicate(a []int) int {
 
-func deduplicate(a []int) int {
-   
     if len(a) == 0 {
         return 0
     }
@@ -122,10 +170,27 @@ func deduplicate(a []int) int {
         prev++
         a[prev] = a[next]
     }
-    return prev+1
-    
+    return prev + 1
+
 }
 
+func ReverseInteger(in int64) int64 {
+    var out, remainder int64
 
+    for in != 0 {
+        remainder = in % 10
 
+        // check for overflow/underflow before multiplying by 10.
+        if out > math.MaxInt64/10 || (out == math.MaxInt64/10 && remainder > 7) {
+            return 0
+        }
+        if out < math.MinInt64/10 || (out == math.MinInt64/10 && remainder < -8) {
+            return 0
+        }
 
+        out = out*10 + remainder
+        in /= 10
+    }
+
+    return out
+}
