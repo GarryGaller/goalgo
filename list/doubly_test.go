@@ -158,7 +158,7 @@ func TestListImpl_Repeatability(t *testing.T) {
 	assert.Equal(t, testData4, dl.Last().Data())
 }
 
-func Test(t *testing.T) {
+func TestList(t *testing.T) {
 	dl := doublylinkedlist.New(1, 2, 3, 4)
 	dl.Add(5, 6, 7, 3)
 

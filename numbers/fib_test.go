@@ -7,7 +7,7 @@ import (
     "github.com/GarryGaller/goalgo/numbers"
 )
 
-func Test(t *testing.T) {
+func TestFib(t *testing.T) {
     fib := &numbers.Fib{}
     //-----------------
     got, _ := fib.Calc(uint(5), true)

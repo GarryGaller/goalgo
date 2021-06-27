@@ -1,4 +1,4 @@
-package main
+package stack
 
 import (
     "fmt"
@@ -76,5 +76,4 @@ func (s *Stack) String() string {
     }
     return "[" + strings.Join(ret, ", ") + "]"
 }
-
 

@@ -7,7 +7,7 @@ import (
     "github.com/GarryGaller/goalgo/numbers"
 )
 
-func Test(t *testing.T) {
+func TestNum(t *testing.T) {
 
     a := []int{1, 2, 2, 3, 3, 3, 4, 4, 4, 4}
     n := numbers.RemoveDuplicates(a)

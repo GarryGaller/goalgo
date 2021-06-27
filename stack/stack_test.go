@@ -1,4 +1,4 @@
-package queue
+package stack
 
 import (
     "fmt"
@@ -16,7 +16,7 @@ func Test(t *testing.T) {
     stack.Push(2)
     stack.Push(3.5)
     stack.Push(4)
-    stack.Push("сто")
+    stack.Push("СЃС‚Рѕ")
     stack.Push("qwerty")
     fmt.Println(stack.Pop())
 
