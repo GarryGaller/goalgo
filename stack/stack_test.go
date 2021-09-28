@@ -33,7 +33,7 @@ func TestPop(t *testing.T) {
 		stack.Push(1)
 		got, err := stack.Pop()
 
-		if err != nil || got != 1 {
+		if err != nil && got != 1 {
 			t.Errorf("stack.Pop() = %v, %v; want %v, %v", got, err, 1, nil)
 		}
 	})
@@ -44,7 +44,7 @@ func TestPush(t *testing.T) {
 	stack := New()
 	for want := 1; want < 1000; want++ {
 		stack.Push(want)
-		got, _ := stack.Top()
+		got := stack.Size()
 		if got != want {
 			t.Errorf("stack.Push() = %v; want %v", got, want)
 		}
