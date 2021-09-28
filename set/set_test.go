@@ -7,10 +7,10 @@ import (
 
 func TestNew(t *testing.T) {
 
-	set := New()
+	got := New()
 
-	if set == nil {
-		t.Errorf("set.New() = %v; want %v", set, New())
+	if got == nil || got == new(Set) {
+		t.Errorf("set.New() = %v; want %v", got, New())
 	}
 }
 
