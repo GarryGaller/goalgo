@@ -23,7 +23,7 @@ func New(initCap ...int) *Queue {
 
 }
 
-func (q *Queue) Empty() bool {
+func (q *Queue) IsEmpty() bool {
 	return q.size == 0
 }
 

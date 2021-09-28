@@ -67,20 +67,20 @@ func TestEmpty(t *testing.T) {
 
 	t.Run("Pop for empty queue", func(t *testing.T) {
 		queue := New()
-		got := queue.Empty()
+		got := queue.IsEmpty()
 
 		if !got {
-			t.Errorf("queue.Empty() = %v; want %v", got, true)
+			t.Errorf("queue.IsEmpty() = %v; want %v", got, true)
 		}
 	})
 
 	t.Run("Pop for non empty queue", func(t *testing.T) {
 		queue := New()
 		queue.Enqueue(1)
-		got := queue.Empty()
+		got := queue.IsEmpty()
 
 		if got {
-			t.Errorf("queue.Empty() = %v; want %v", got, false)
+			t.Errorf("queue.IsEmpty() = %v; want %v", got, false)
 		}
 	})
 }
