@@ -3,8 +3,8 @@ package strings
 import (
 	crand "crypto/rand"
 	"encoding/hex"
-	"encoding/utf8"
 	"math/rand"
+	"unicode/utf8"
 )
 
 var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -32,6 +32,29 @@ func ContainsString(s []string, target string) bool {
 	}
 
 	return false
+}
+
+func ReverseStrings(a *[]string) {
+	// initialize start and end index pointer.
+	i := 0
+	j := len(*a) - 1
+
+	for i < j {
+
+		(*a)[i], (*a)[j] = (*a)[j], (*a)[i]
+		// move the cursor toward the middle.
+		i++
+		j--
+	}
+}
+
+func ReverseStrings2(a *[]string) {
+
+	n := len(*a) - 1
+
+	for i := 0; i < n/2; i++ {
+		(*a)[n-i], (*a)[i] = (*a)[i], (*a)[n-i]
+	}
 }
 
 func Deduplicate(in *[]string) {
@@ -122,9 +145,9 @@ func Reverse3(s string) string {
 
 func Reverse4(s string) string {
 	runes := []rune(s)
-	n := len(runes)
-	for i := 0; n / 2; i++ {
-		runes[n-i-1], runes[i] = runes[i], runes[n-i-1]
+	n := len(runes) - 1
+	for i := 0; i < n/2; i++ {
+		runes[n-i], runes[i] = runes[i], runes[n-i]
 	}
 	return string(runes)
 }
