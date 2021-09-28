@@ -27,7 +27,10 @@ func TestClone(t *testing.T) {
 
 func TestClear(t *testing.T) {
 
-	set := New(1)
+	set := New()
+	for i := 1; i < 1000; i++ {
+		set.Add(i)
+	}
 	set.Clear()
 
 	if !reflect.DeepEqual(set, New()) {
@@ -38,12 +41,13 @@ func TestClear(t *testing.T) {
 func TestAdd(t *testing.T) {
 
 	set := New()
-	set.Add(1)
-
-	if !reflect.DeepEqual(set, New(1)) {
-		t.Errorf("set.Add(1) = %v; want %v", set, New(1))
+	for i := 1; i < 1000; i++ {
+		set.Add(i)
+		got := set.Contains(i)
+		if !got {
+			t.Errorf("set.Add(%d) = %v; want %v", i, got, true)
+		}
 	}
-
 }
 
 func TestPop(t *testing.T) {
@@ -54,25 +58,34 @@ func TestPop(t *testing.T) {
 	if !set.IsEmpty() {
 		t.Errorf("set.Pop() = %v; want %v", set, New())
 	}
-
 }
 
 func TestContains(t *testing.T) {
 
-	set := New(1)
-	got := set.Contains(1)
-	if !got {
-		t.Errorf("set.Contains(1) = %v; want %v", got, true)
+	set := New()
+	for i := 1; i < 1000; i++ {
+		set.Add(i)
+		got := set.Contains(i)
+		if !got {
+			t.Errorf("set.Contains(%d) = %v; want %v", i, got, true)
+		}
 	}
-
 }
 
 func TestDelete(t *testing.T) {
-	set := New(1)
-	set.Delete(1)
 
-	if !set.IsEmpty() {
-		t.Errorf("set.Delete(1) = %v; want %v", set, New())
+	set := New()
+	for i := 1; i < 1000; i++ {
+		set.Add(i)
+	}
+
+	for i := 1; i < 1000; i++ {
+		set.Delete(i)
+		got := set.Contains(i)
+
+		if got {
+			t.Errorf("set.Delete(%d) = %v; want %v", i, got, false)
+		}
 	}
 }
 
@@ -162,22 +175,27 @@ func TestIsSuperset(t *testing.T) {
 
 func TestSize(t *testing.T) {
 
-	set := New(1)
-	got := set.Size()
+	set := New()
+	for want := 1; want < 1000; want++ {
+		set.Add(want)
+		got := set.Size()
 
-	if got != 1 {
-		t.Errorf("set.Size() = %v; want %v", got, 1)
+		if got != want {
+			t.Errorf("set.Size() = %v; want %v", got, want)
+		}
 	}
-
 }
 
 func TestCard(t *testing.T) {
 
-	set := New(1)
-	got := set.Card()
+	set := New()
+	for want := 1; want < 1000; want++ {
+		set.Add(want)
+		got := set.Card()
 
-	if got != 1 {
-		t.Errorf("set.Card() = %v; want %v", got, 1)
+		if got != want {
+			t.Errorf("set.Card() = %v; want %v", got, want)
+		}
 	}
 }
 

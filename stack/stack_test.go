@@ -67,20 +67,20 @@ func TestEmpty(t *testing.T) {
 
 	t.Run("Pop for empty stack", func(t *testing.T) {
 		stack := New()
-		got := stack.Empty()
+		got := stack.IsEmpty()
 
 		if !got {
-			t.Errorf("stack.Empty() = %v; want %v", got, true)
+			t.Errorf("stack.IsEmpty() = %v; want %v", got, true)
 		}
 	})
 
 	t.Run("Pop for non empty stack", func(t *testing.T) {
 		stack := New()
 		stack.Push(1)
-		got := stack.Empty()
+		got := stack.IsEmpty()
 
 		if got {
-			t.Errorf("stack.Empty() = %v; want %v", got, false)
+			t.Errorf("stack.IsEmpty() = %v; want %v", got, false)
 		}
 	})
 }

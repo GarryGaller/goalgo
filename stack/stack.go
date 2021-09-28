@@ -23,7 +23,7 @@ func New(initCap ...int) *Stack {
 
 }
 
-func (s *Stack) Empty() bool {
+func (s *Stack) IsEmpty() bool {
 	return s.size == 0
 }
 
