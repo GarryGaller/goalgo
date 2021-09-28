@@ -110,6 +110,24 @@ func Random(min, max int) int {
     }
     return rand.Intn(max-min) + min
 }
+   
+// Permutations
+func Perm(a []rune, f func([]rune)) {
+        perm(a, f, 0)
+}
+
+func perm(a []rune, f func([]rune), i int) {
+        if i > len(a) {
+                f(a)
+                return
+        }
+        perm(a, f, i+1)
+        for j := i + 1; j < len(a); j++ {
+                a[i], a[j] = a[j], a[i]
+                perm(a, f, i+1)
+                a[i], a[j] = a[j], a[i]
+        }
+}
 
 // Contain checks if the target is in a slice.
 func Contain(s []int, target int) bool {
@@ -133,7 +151,7 @@ func ContainString(s []string, target string) bool {
     return false
 }
 
-func RemoveDuplicates(a []int) int {
+func Deduplicate(a []int) int {
     /*only for sorted arrays*/
 
     if len(a) == 0 {
@@ -156,7 +174,7 @@ func RemoveDuplicates(a []int) int {
     return n
 }
 
-func Deduplicate(a []int) int {
+func Deduplicate2(a []int) int {
 
     if len(a) == 0 {
         return 0

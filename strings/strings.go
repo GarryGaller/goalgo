@@ -1,5 +1,29 @@
 package strings
 
+import (
+	crand "crypto/rand"
+	"encoding/hex"
+	"encoding/utf8"
+	"math/rand"
+) 
+
+var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+func RandomString(n int) string {
+    b := make([]rune, n)
+    for i := range b {
+        b[i] = letters[rand.Intn(len(letters))]
+    }
+    return string(b)
+}
+
+
+func RandomString2(n int) string {
+	p := make([]byte, n/2+1)
+	crand.Read(p)
+	return hex.EncodeToString(p)[:n]
+}
+
 func Deduplicate(in *[]string) {
 	/* Classic duplicate removal algorithm
 	   on sorted data
@@ -12,7 +36,7 @@ func Deduplicate(in *[]string) {
 		if (*in)[j] != (*in)[i] {
 			j++
 			(*in)[j] = (*in)[i]
-        }
+		}
 	}
 	*in = (*in)[:j+1]
 	return
