@@ -220,18 +220,6 @@ func BenchmarkDuplicates(b *testing.B) {
 
 	})
 
-	b.Run("Duplicates2", func(b *testing.B) {
-		data := make([]string, len(arr))
-		copy(data, arr)
-		sort.Strings(data)
-		b.ResetTimer()
-
-		for i := 0; i < b.N; i++ {
-			_ = Duplicates2(data)
-		}
-
-	})
-
 	b.Run("DuplicatesC", func(b *testing.B) {
 		data := make([]string, len(arr))
 		copy(data, arr)
@@ -247,12 +235,11 @@ func BenchmarkDuplicates(b *testing.B) {
 // benchmarks
 //go test -bench=Duplicates -benchmem
 /*
-BenchmarkDuplicates/Duplicates-4                     372           3312017 ns/op              16 B/op          1 allocs/op
-BenchmarkDuplicates/Duplicates1-4                    327           3446680 ns/op              16 B/op          1 allocs/op
-BenchmarkDuplicates/Duplicates2-4                    354           3522801 ns/op              16 B/op          1 allocs/op
-BenchmarkDuplicates/DuplicatesC-4                     24          46794342 ns/op         8086087 B/op       3991 allocs/op
+BenchmarkDuplicates/Duplicates-4                     375           3077509 ns/op              16 B/op          1 allocs/op
+BenchmarkDuplicates/Duplicates1-4                    363           3292199 ns/op              16 B/op          1 allocs/op
+BenchmarkDuplicates/DuplicatesC-4                     27          45669278 ns/op         8084900 B/op       3985 allocs/op
 PASS
-ok      github.com/GarryGaller/goalgo/strings   7.515s
+ok      github.com/GarryGaller/goalgo/strings   4.867s
 */
 
 func BenchmarkUnique(b *testing.B) {
@@ -274,6 +261,18 @@ func BenchmarkUnique(b *testing.B) {
 
 		for i := 0; i < b.N; i++ {
 			_ = Unique(data)
+		}
+
+	})
+
+	b.Run("Unique1", func(b *testing.B) {
+		data := make([]string, len(arr))
+		copy(data, arr)
+		sort.Strings(data)
+		b.ResetTimer()
+
+		for i := 0; i < b.N; i++ {
+			_ = Unique1(data)
 		}
 
 	})
@@ -305,9 +304,10 @@ func BenchmarkUnique(b *testing.B) {
 // benchmarks
 //go test -bench=Unique -benchmem
 /*
-BenchmarkUnique/Unique-4                      42          30192202 ns/op         9247360 B/op         30 allocs/op
-BenchmarkUnique/Unique2-4                     56          27430139 ns/op         9247352 B/op         30 allocs/op
-BenchmarkUnique/UniqueC-4                     18          60559022 ns/op        17335775 B/op       4031 allocs/op
+BenchmarkUnique/Unique-4                      44          28842532 ns/op         9247352 B/op         30 allocs/op
+BenchmarkUnique/Unique1-4                     56          25983629 ns/op         9247351 B/op         30 allocs/op
+BenchmarkUnique/Unique2-4                     54          25668115 ns/op         9247353 B/op         30 allocs/op
+BenchmarkUnique/UniqueC-4                     18          60670133 ns/op        17332389 B/op       4015 allocs/op
 PASS
-ok      github.com/GarryGaller/goalgo/strings   4.534s
+ok      github.com/GarryGaller/goalgo/strings   6.097s
 */

@@ -1,5 +1,8 @@
 package strings
 
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
 func Deduplicate(arr *[]string) {
 	/*
 	   Classic duplicate removal algorithm on sorted data
@@ -81,6 +84,9 @@ func Deduplicate4(arr []string) (out []string) {
 	return
 }
 
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
 func Duplicates(arr []string) (out []string) {
 	/*
 	   Возвращает  массив повторяющихся элементов из отсортированного массива
@@ -90,8 +96,10 @@ func Duplicates(arr []string) (out []string) {
 	cnt := -1
 
 	for i := 1; i < len(arr); i++ {
-		if arr[i] == arr[i-1] && cnt == -1 {
-			out = append(out, arr[i])
+		if arr[i] == arr[i-1] {
+			if cnt == -1 {
+				out = append(out, arr[i-1])
+			}
 			cnt += 1
 		} else {
 			cnt = -1
@@ -124,30 +132,9 @@ func Duplicates1(arr []string) (out []string) {
 	return
 }
 
-func Duplicates2(arr []string) (out []string) {
-	/*
-	   Возвращает  массив повторяющихся элементов из отсортированного массива
-	   Возвращает только один дубликат из группы
-	*/
-
-	prev := arr[0]
-	cnt := -1
-
-	for i := 1; i < len(arr); i++ {
-		curr := arr[i]
-		if prev != curr {
-			prev = curr
-			cnt = -1
-		} else {
-			if cnt == -1 {
-				out = append(out, prev)
-			}
-			cnt += 1
-		}
-	}
-	return
-}
-
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
 func Unique(arr []string) (out []string) {
 	/*
 	   Возвращает  массив уникальных (не имеющих дубликатов) элементов
@@ -162,6 +149,31 @@ func Unique(arr []string) (out []string) {
 	}
 	return
 
+}
+
+func Unique1(arr []string) (out []string) {
+	/*
+	   Возвращает  массив уникальных (не имеющих дубликатов) элементов
+	   из отсортированного массива
+	*/
+
+	cnt := -1
+	N := len(arr)
+	for i := 1; i < len(arr); i++ {
+		if arr[i] != arr[i-1] {
+			if cnt == -1 {
+				out = append(out, arr[i-1])
+			}
+			cnt = -1
+		} else {
+			cnt += 1
+		}
+	}
+	if arr[N-1] != arr[N-2] {
+		out = append(out, arr[N-1])
+	}
+
+	return
 }
 
 func Unique2(arr []string) (out []string) {
