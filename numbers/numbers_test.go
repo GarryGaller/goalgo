@@ -1,20 +1,40 @@
 package numbers
 
 import (
-    "fmt"
-    "sort"
-    "testing"
+	"reflect"
+	"testing"
 )
 
-func TestNum(t *testing.T) {
+func TestDeduplicate(t *testing.T) {
 
-    a := []int{1, 2, 2, 3, 3, 3, 4, 4, 4, 4}
-    n := Deduplicate(a)
-    fmt.Printf("%v\n", a[:n])
+	testCases := []struct {
+		in       []int
+		expected []int
+	}{
+		{[]int{}, []int{}},
+		{[]int{1}, []int{1}},
+		{[]int{1, 2}, []int{1, 2}},
+		{[]int{1, 2, 2}, []int{1, 2}},
+		{[]int{1, 2, 2, 3, 3, 3, 4, 4, 4, 4}, []int{1, 2, 3, 4}},
+	}
 
-    a = []int{2, 3, 4, 5, 7, 7, 2, 2, 3, 100}
-    sort.Ints(a)
-    n = Deduplicate2(a)
-    fmt.Printf("%v\n", a[:n])
+	for _, tc := range testCases {
+		t.Run("Deduplicate", func(t *testing.T) {
+			tmp := make([]int, len(tc.in))
+			copy(tmp, tc.in)
+			got := Deduplicate(tmp)
+			if !reflect.DeepEqual(tmp[:got], tc.expected) {
+				t.Errorf("Deduplicate() = %v; want %v", tc.in[:got], tc.expected)
+			}
+		})
 
+		t.Run("Deduplicate2", func(t *testing.T) {
+			tmp := make([]int, len(tc.in))
+			copy(tmp, tc.in)
+			got := Deduplicate2(tmp)
+			if !reflect.DeepEqual(tmp[:got], tc.expected) {
+				t.Errorf("Deduplicate2() = %v; want %v", tc.in[:got], tc.expected)
+			}
+		})
+	}
 }

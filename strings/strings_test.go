@@ -162,7 +162,7 @@ func TestDeduplicate(t *testing.T) {
 
 			got := Deduplicate2(tc.in)
 			if !reflect.DeepEqual(tc.in[:got],tc.expected){
-				t.Errorf("Deduplicate2() = %v; want %v", got, tc.expected)
+				t.Errorf("Deduplicate2() = %v; want %v", tc.in[:got], tc.expected)
 			}
 		})
 

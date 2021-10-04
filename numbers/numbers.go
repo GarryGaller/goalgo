@@ -150,15 +150,14 @@ func Deduplicate2(a []int) int {
 		return 0
 	}
 
-	prev := 0
+	idx := 1
 	for next := 1; next < len(a); next++ {
-		if a[prev] == a[next] {
-			continue
+		if a[idx-1] != a[next] {
+			a[idx] = a[next]
+			idx++
 		}
-		prev++
-		a[prev] = a[next]
 	}
-	return prev + 1
+	return idx
 
 }
 
