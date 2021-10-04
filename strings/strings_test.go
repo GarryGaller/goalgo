@@ -254,7 +254,7 @@ func TestUnique(t *testing.T) {
         
         {
 			[]string{},
-			[]string{},
+			[]string{"1"},
 		},
 	}
 

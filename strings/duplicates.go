@@ -246,8 +246,10 @@ func DeduplicateCounter(arr []string) (out []string) {
 	   Возвращает новый массив без дубликатов
 	   Не требует сортировки
 	*/
-
-	counter := Counter(arr)
+    out = make([]string, 0)
+	if len(arr) == 0 {return}
+	
+    counter := Counter(arr)
 	for k, _ := range counter {
 		out = append(out, k)
 	}
@@ -258,7 +260,10 @@ func DeduplicateCounter(arr []string) (out []string) {
 func DuplicatesCounter(arr []string) (out []string) {
 	/* Возвращает новый массив из дубликатов (по одному из группы) */
 
-	counter := Counter(arr)
+	out = make([]string, 0)
+	if len(arr) == 0 {return}
+    
+    counter := Counter(arr)
 	for k, v := range counter {
 		if v > 1 {
 			out = append(out, k)
@@ -273,7 +278,10 @@ func UniqueCounter(arr []string) (out []string) {
 	   (не имеющих повторов в исходном массиве) элементов
 	*/
 
-	counter := Counter(arr)
+	out = make([]string, 0)
+	if len(arr) == 0 {return}
+    
+    counter := Counter(arr)
 	for k, v := range counter {
 		if v == 1 {
 			out = append(out, k)

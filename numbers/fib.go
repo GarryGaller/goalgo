@@ -23,20 +23,20 @@ type Fib struct {
 
 //  (Public) Returns F(n).
 func (f *Fib) Calc(n uint, fast bool) (*big.Int, error) {
-    var err error
-    var fst *big.Int
-    if n < 0 {
-        err = errors.New("Negative arguments not implemented")
-    } else {
-        switch fast {
-        case true:
-            fst, _ = f.fib_fast(n)
-        default:
-            fst, _ = f.fib(n)
-        }
-    }
+	var err error
+	var fst *big.Int
+	if n < 0 {
+		err = errors.New("Negative arguments not implemented")
+	} else {
+		switch fast {
+		case true:
+			fst, _ = f.fib_fast(n)
+		default:
+			fst, _ = f.fib(n)
+		}
+	}
 
-    return fst, err
+	return fst, err
 }
 
 // (Private) Returns the tuple (F(n), F(n+1)).
