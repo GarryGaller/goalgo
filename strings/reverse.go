@@ -20,13 +20,12 @@ func ReverseStrings(a *[]string) {
 
 func ReverseStrings2(a *[]string) {
 
-	n := len(*a) - 1
+	n := len(*a)
 
 	for i := 0; i < n/2; i++ {
-		(*a)[n-i], (*a)[i] = (*a)[i], (*a)[n-i]
+		(*a)[i], (*a)[n-1-i] = (*a)[n-1-i], (*a)[i]
 	}
 }
-
 
 func Reverse(s string) string {
 	runes := []rune(s)
@@ -46,9 +45,9 @@ func Reverse1(s string) string {
 
 func Reverse2(s string) string {
 	runes := []rune(s)
-	n := len(runes) - 1
+	n := len(runes)
 	for i := 0; i < n/2; i++ {
-		runes[n-i], runes[i] = runes[i], runes[n-i]
+		runes[i], runes[n-1-i] = runes[n-1-i], runes[i]
 	}
 	return string(runes)
 }
@@ -69,7 +68,6 @@ func Reverse3(str string) string {
 
 	return string(buf)
 }
-  
 
 func ReverseSimple(value string) string {
 	// Convert string to rune slice.

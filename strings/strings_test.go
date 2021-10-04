@@ -2,9 +2,124 @@ package strings
 
 import (
 	"fmt"
+	"reflect"
 	"sort"
 	"testing"
 )
+
+func TestIsPalindrome(t *testing.T) {
+	testCases := []struct {
+		in       string
+		expected bool
+	}{
+		{"A man, a plan, a canal: Panama", true},
+		{"race a car", false},
+		{"А роза упала на лапу Азора", true},
+	}
+
+	for _, tc := range testCases {
+		got := IsPalindrome(tc.in)
+		if got != tc.expected {
+			t.Errorf("IsPalindrome() = %v; want %v", got, tc.expected)
+		}
+	}
+}
+
+func TestReverseStrings(t *testing.T) {
+
+	testCases := []struct {
+		in       []string
+		expected []string
+	}{
+		{
+			[]string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"},
+			[]string{"9", "8", "7", "6", "5", "4", "3", "2", "1", "0"},
+		},
+
+		{
+			[]string{"h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d"},
+			[]string{"d", "l", "r", "o", "w", " ", "o", "l", "l", "e", "h"},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run("ReverseStrings", func(t *testing.T) {
+			got := make([]string, len(tc.in))
+			copy(got, tc.in)
+
+			ReverseStrings(&got)
+			if !reflect.DeepEqual(got, tc.expected) {
+				t.Errorf("ReverseStrings() = %v; want %v", got, tc.expected)
+			}
+		})
+
+		t.Run("ReverseStrings2", func(t *testing.T) {
+			got := make([]string, len(tc.in))
+			copy(got, tc.in)
+
+			ReverseStrings2(&got)
+			if !reflect.DeepEqual(got, tc.expected) {
+				t.Errorf("ReverseStrings2() = %v; want %v", got, tc.expected)
+			}
+		})
+
+	}
+}
+
+func TestReverse(t *testing.T) {
+
+	testCases := []struct {
+		in       string
+		expected string
+	}{
+		{"0123456789", "9876543210"},
+		{"hello world", "dlrow olleh"},
+		{"racecar", "racecar"},
+	}
+
+	for _, tc := range testCases {
+		t.Run("Reverse", func(t *testing.T) {
+
+			got := Reverse(tc.in)
+			if got != tc.expected {
+				t.Errorf("Reverse() = %v; want %v", got, tc.expected)
+			}
+		})
+
+		t.Run("Reverse1", func(t *testing.T) {
+
+			got := Reverse1(tc.in)
+			if got != tc.expected {
+				t.Errorf("Reverse1() = %v; want %v", got, tc.expected)
+			}
+		})
+
+		t.Run("Reverse2", func(t *testing.T) {
+
+			got := Reverse2(tc.in)
+			if got != tc.expected {
+				t.Errorf("Reverse2() = %v; want %v", got, tc.expected)
+			}
+		})
+
+		t.Run("Reverse3", func(t *testing.T) {
+
+			got := Reverse3(tc.in)
+			if got != tc.expected {
+				t.Errorf("Reverse3() = %v; want %v", got, tc.expected)
+			}
+		})
+
+		t.Run("ReverseSimple", func(t *testing.T) {
+
+			got := ReverseSimple(tc.in)
+			if got != tc.expected {
+				t.Errorf("ReversSimple() = %v; want %v", got, tc.expected)
+			}
+		})
+
+	}
+}
 
 func BenchmarkReverseStrings(b *testing.B) {
 

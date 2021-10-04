@@ -182,3 +182,34 @@ func ReverseInteger(in int64) int64 {
 
 	return out
 }
+
+func FindPairTargetSum(a []int, target int) []int {
+	/*
+	   Approach:
+	   - Have one pointer start at the beginning and one at the end of the array.
+	   - At each step, see if the two pointers add up to the target sum and move
+	     them toward each other accordingly.
+
+	   Cost:
+	   - O(n) time, O(n) space.
+	*/
+
+	out := []int{}
+
+	start := 0
+	end := len(a) - 1
+
+	for start < end {
+		sum := a[start] + a[end]
+		if sum > target {
+			end--
+		} else if sum < target {
+			start++
+		} else {
+			out = append(out, start, end)
+			break
+		}
+	}
+
+	return out
+}
