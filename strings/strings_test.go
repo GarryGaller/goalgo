@@ -121,6 +121,172 @@ func TestReverse(t *testing.T) {
 	}
 }
 
+func TestDeduplicate(t *testing.T) {
+
+	testCases := []struct {
+		in       []string
+		expected []string
+	}{
+		{
+			[]string{"1", "2", "3"},
+			[]string{"1", "2", "3"},
+		},
+
+		{
+			[]string{"1", "2", "3", "3"},
+			[]string{"1", "2", "3"},
+		},
+
+		{
+			[]string{"1"},
+			[]string{"1"},
+		},
+        
+        {
+			[]string{},
+			[]string{},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run("Deduplicate", func(t *testing.T) {
+            got := make([]string, len(tc.in))
+		    copy(got, tc.in)
+			Deduplicate(&got)
+			if !reflect.DeepEqual(got,tc.expected) {
+				t.Errorf("Deduplicate() = %v; want %v", got, tc.expected)
+			}
+		})
+
+		t.Run("Deduplicate2", func(t *testing.T) {
+
+			got := Deduplicate2(tc.in)
+			if !reflect.DeepEqual(tc.in[:got],tc.expected){
+				t.Errorf("Deduplicate2() = %v; want %v", got, tc.expected)
+			}
+		})
+
+		t.Run("Deduplicate3", func(t *testing.T) {
+
+			got := Deduplicate3(tc.in)
+			if !reflect.DeepEqual(got,tc.expected) {
+				t.Errorf("Duplicates3() = %v; want %v", got, tc.expected)
+			}
+		})
+
+		t.Run("Deduplicate4", func(t *testing.T) {
+
+			got := Deduplicate4(tc.in)
+			if !reflect.DeepEqual(got,tc.expected) {
+				t.Errorf("Deduplicate4() = %v; want %v", got, tc.expected)
+			}
+		})
+	}
+}
+
+func TestDuplicates(t *testing.T) {
+
+	testCases := []struct {
+		in       []string
+		expected []string
+	}{
+		{
+			[]string{"1", "2", "3"},
+			[]string{},
+		},
+
+		{
+			[]string{"1", "2", "3", "3"},
+			[]string{"3"},
+		},
+
+		{
+			[]string{"1"},
+			[]string{},
+		},
+        
+        {
+			[]string{},
+			[]string{},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run("Duplicates", func(t *testing.T) {
+
+			got := Duplicates(tc.in)
+			if !reflect.DeepEqual(got,tc.expected) {
+				t.Errorf("Duplicates() = %v; want %v", got, tc.expected)
+			}
+		})
+
+		t.Run("Duplicates1", func(t *testing.T) {
+
+			got := Duplicates1(tc.in)
+			if !reflect.DeepEqual(got,tc.expected) {
+				t.Errorf("Duplicates1() = %v; want %v", got, tc.expected)
+			}
+		})
+	}
+}
+  
+
+func TestUnique(t *testing.T) {
+
+	testCases := []struct {
+		in       []string
+		expected []string
+	}{
+		{
+			[]string{"1", "2", "3"},
+			[]string{"1", "2", "3"},
+		},
+
+		{
+			[]string{"1", "2", "3", "3","4"},
+			[]string{"1", "2", "4"},
+		},
+
+		{
+			[]string{"1"},
+			[]string{"1"},
+		},
+        
+        {
+			[]string{},
+			[]string{},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run("Unique", func(t *testing.T) {
+
+			got := Unique(tc.in)
+			if !reflect.DeepEqual(got,tc.expected) {
+				t.Errorf("Unique() = %v; want %v", got, tc.expected)
+			}
+		})
+
+		t.Run("Unique1", func(t *testing.T) {
+
+			got := Unique1(tc.in)
+			if !reflect.DeepEqual(got,tc.expected) {
+				t.Errorf("Unique1() = %v; want %v", got, tc.expected)
+			}
+		})
+        
+        t.Run("Unique2", func(t *testing.T) {
+
+			got := Unique2(tc.in)
+			if !reflect.DeepEqual(got,tc.expected) {
+				t.Errorf("Unique2() = %v; want %v", got, tc.expected)
+			}
+		})
+        
+	}
+}
+
+
 func BenchmarkReverseStrings(b *testing.B) {
 
 	data := make([]string, 100000)

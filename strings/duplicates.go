@@ -31,13 +31,10 @@ func Deduplicate2(arr []string) (out int) {
 	   перемещая уникальные элементы в начало списка
 	   Возвращает длину массива после дедупликации
 	*/
-
-	if len(arr) <= 1 {
-		out = len(arr)
-		return
-	}
-
-	for i := 1; i < len(arr); i++ {
+    
+    if len(arr) == 0 {return}
+	
+    for i := 1; i < len(arr); i++ {
 		if arr[i] != arr[out] {
 			out += 1
 			arr[out] = arr[i]
@@ -52,6 +49,10 @@ func Deduplicate3(arr []string) (out []string) {
 	   Возвращает новый массив без дубликтов из переданного отсортированного
 	   (из группы одинаковых элементов берется последний)
 	*/
+	
+    out = make([]string, 0)
+	if len(arr) == 0 {return}
+
 	prev := arr[0]
 
 	for _, curr := range arr {
@@ -70,6 +71,10 @@ func Deduplicate4(arr []string) (out []string) {
 	   Возвращает новый массив без дубликтов из переданного отсортированного
 	   (из группы одинаковых элементов берется последний)
 	*/
+	
+    out = make([]string, 0)
+	if len(arr) == 0 {return}
+
 	prev := arr[0]
 
 	for i := 1; i < len(arr); i++ {
@@ -92,7 +97,10 @@ func Duplicates(arr []string) (out []string) {
 	   Возвращает  массив повторяющихся элементов из отсортированного массива
 	   Возвращает только один дубликат из группы
 	*/
-
+    
+    out = make([]string, 0)
+	if len(arr) == 0 {return}
+    
 	cnt := -1
 
 	for i := 1; i < len(arr); i++ {
@@ -113,6 +121,9 @@ func Duplicates1(arr []string) (out []string) {
 	   Возвращает  массив повторяющихся элементов из отсортированного массива
 	   Возвращает только один дубликат из группы
 	*/
+	
+    out = make([]string, 0)
+	if len(arr) == 0 {return}
 
 	prev := arr[0]
 	cnt := -1
@@ -140,7 +151,11 @@ func Unique(arr []string) (out []string) {
 	   Возвращает  массив уникальных (не имеющих дубликатов) элементов
 	   из отсортированного массива
 	*/
-	N := len(arr)
+	
+    out = make([]string, 0)
+	if len(arr) == 0 {return}
+    
+    N := len(arr)
 
 	for i := 0; i < N; i++ {
 		if (i == 0 || arr[i] > arr[i-1]) && (i == (N-1) || arr[i] < arr[i+1]) {
@@ -157,7 +172,10 @@ func Unique1(arr []string) (out []string) {
 	   из отсортированного массива
 	*/
 
-	cnt := -1
+	out = make([]string, 0)
+	if len(arr) == 0 {return}
+	
+    cnt := -1
 	N := len(arr)
 	for i := 1; i < len(arr); i++ {
 		if arr[i] != arr[i-1] {
@@ -169,7 +187,7 @@ func Unique1(arr []string) (out []string) {
 			cnt += 1
 		}
 	}
-	if arr[N-1] != arr[N-2] {
+	if cnt == -1 {
 		out = append(out, arr[N-1])
 	}
 
@@ -181,6 +199,10 @@ func Unique2(arr []string) (out []string) {
 	   Возвращает  массив уникальных (не имеющих дубликатов) элементов
 	   из отсортированного массива
 	*/
+     
+    out = make([]string, 0)
+	if len(arr) == 0 {return}
+
 	prev := arr[0]
 	cnt := -1
 
