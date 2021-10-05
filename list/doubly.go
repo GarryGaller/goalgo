@@ -203,18 +203,17 @@ func (l *List) MoveToFront(node *Node) bool {
 	return true
 }
 
-func (l *List) Remove(v interface{}) *Node {
-	for n := l.head; n != nil; n = n.next {
-		if n.data == v {
-			l.remove(n)
-			return n
-		}
+func (l *List) Remove(v interface{}) bool {
+	out := l.Find(v)
+	if out != nil {
+		l.remove(out)
+		return true
 	}
-	return nil
+	return false
 }
 
-// not work !!! TODO
-func (l *List) RemoveAll(v interface{}) int {
+// not work !!!
+func (l *List) Bad_RemoveAll(v interface{}) int {
 	var count int
 	for n := l.head; n != nil; n = n.next {
 		if n.data == v {
@@ -225,8 +224,20 @@ func (l *List) RemoveAll(v interface{}) int {
 	return count
 }
 
+func (l *List) RemoveAll(v interface{}) int {
+	var count int
+	nodes := l.FindAll(v)
+	for _, n := range nodes {
+		l.remove(n)
+		count++
+	}
+	return count
+}
+
 func (l *List) RemoveNode(node *Node) {
-	l.remove(node)
+	if node != nil {
+		l.remove(node)
+	}
 }
 
 func (l *List) Reverse2() {
@@ -324,8 +335,8 @@ func (l *List) insert(node, mark *Node, position string) bool {
 func (l *List) remove(node *Node) {
 	l.unlink(node)
 	l.delete(node)
-
 }
+
 func (l *List) unlink(node *Node) {
 	// если узел - голова
 	if node == l.head {

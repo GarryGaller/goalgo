@@ -70,12 +70,47 @@ func ExampleRemove2() {
 
 	list := New()
 	list.Add(3, 3, 3)
-	list.Remove(3)
-	list.ForEach()
+	removed := list.Remove(3)
+	fmt.Println(removed)
+    list.ForEach()
 	// Output:
+    // true
 	// Node(data=3)
 	// Node(data=3)
 }
+  
+
+func ExampleRemoveNode() {
+	list := New(1, 2, 3, 4)
+	list.RemoveNode(list.First())
+	list.ForEach()
+	// Output:
+	// Node(data=2)
+    // Node(data=3)
+	// Node(data=4)
+}
+
+  
+func ExampleRemoveAll() {
+
+	list := New()
+	list.Add(3, 3, 3)
+	list.RemoveAll(3)
+	list.ForEach()
+	// Output:
+	//
+}
+  
+func ExampleRemoveAll2() {
+
+	list := New()
+	list.Add(1, 3, 3)
+	list.RemoveAll(3)
+	list.ForEach()
+	// Output:
+	// Node(data=1)
+}
+
 
 func ExampleInsertBefore() {
 	list := New(1, 2, 3)
@@ -165,16 +200,8 @@ func ExampleReverse() {
 	// Node(data=1)
 }
 
-// не работает
-func ExampleRemoveAll() {
 
-	list := New()
-	list.Add(3, 3, 3)
-	list.RemoveAll(3)
-	list.ForEach()
-	// Output:
-	//
-}
+
 
 func TestNew(t *testing.T) {
 
@@ -359,7 +386,7 @@ func TestRemoveNode(t *testing.T) {
 	}
 }
 
-// не удаляет все вхождения
+
 func TestRemoveAll(t *testing.T) {
 
 	list := New()
