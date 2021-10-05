@@ -274,6 +274,10 @@ func (l *List) Reverse() {
 
 func (l *List) push(node *Node, position string) {
 
+	if node == nil {
+		return
+	}
+
 	if l.size == 0 {
 		l.head = node
 		l.tail = node
@@ -333,11 +337,17 @@ func (l *List) insert(node, mark *Node, position string) bool {
 }
 
 func (l *List) remove(node *Node) {
-	l.unlink(node)
-	l.delete(node)
+	if node != nil {
+		l.unlink(node)
+		l.delete(node)
+	}
 }
 
 func (l *List) unlink(node *Node) {
+
+	if node == nil {
+		return
+	}
 	// если узел - голова
 	if node == l.head {
 		// говорим что новая голова - следующий за head узел
@@ -364,30 +374,28 @@ func (l *List) unlink(node *Node) {
 }
 
 func (l *List) delete(node *Node) {
-	node.next = nil
-	node.prev = nil
-	l.size--
 
-	if l.size == 0 {
-		l.Clear()
+	if node != nil {
+		node.next = nil
+		node.prev = nil
+		l.size--
+
+		if l.size == 0 {
+			l.Clear()
+		}
+
+		node = nil
 	}
-
-	node = nil
 }
 
-func (l *List) move(node, mark *Node, position string) bool {
+func (l *List) move(node, mark *Node, position string) (out bool) {
 
-	if l.size == 0 {
-		return false
+	if l.size != 0 && node != nil && mark != nil {
+		l.unlink(node)
+		out = l.insert(node, mark, position)
 	}
 
-	if node == nil || mark == nil {
-		return false
-	}
-
-	l.unlink(node)
-	l.insert(node, mark, position)
-	return true
+	return
 }
 
 //         1                            2                  3

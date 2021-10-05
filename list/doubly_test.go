@@ -72,13 +72,12 @@ func ExampleRemove2() {
 	list.Add(3, 3, 3)
 	removed := list.Remove(3)
 	fmt.Println(removed)
-    list.ForEach()
+	list.ForEach()
 	// Output:
-    // true
+	// true
 	// Node(data=3)
 	// Node(data=3)
 }
-  
 
 func ExampleRemoveNode() {
 	list := New(1, 2, 3, 4)
@@ -86,11 +85,10 @@ func ExampleRemoveNode() {
 	list.ForEach()
 	// Output:
 	// Node(data=2)
-    // Node(data=3)
+	// Node(data=3)
 	// Node(data=4)
 }
 
-  
 func ExampleRemoveAll() {
 
 	list := New()
@@ -100,7 +98,7 @@ func ExampleRemoveAll() {
 	// Output:
 	//
 }
-  
+
 func ExampleRemoveAll2() {
 
 	list := New()
@@ -110,7 +108,6 @@ func ExampleRemoveAll2() {
 	// Output:
 	// Node(data=1)
 }
-
 
 func ExampleInsertBefore() {
 	list := New(1, 2, 3)
@@ -199,9 +196,6 @@ func ExampleReverse() {
 	// Node(data=2)
 	// Node(data=1)
 }
-
-
-
 
 func TestNew(t *testing.T) {
 
@@ -385,7 +379,6 @@ func TestRemoveNode(t *testing.T) {
 		t.Errorf("list.Len() = %v; want %v", gotLen, wantlen)
 	}
 }
-
 
 func TestRemoveAll(t *testing.T) {
 
