@@ -1,249 +1,391 @@
-package doublylinkedlist_test
-
-//https://github.com/omerkaya1/doublylinkedlist/blob/master/doublylinkedlist.go
+package doublylinkedlist
 
 import (
 	"fmt"
-	"github.com/GarryGaller/goalgo/list"
+	"reflect"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
-var (
-	testData1 = "first"
-	testData2 = "second"
-	testData3 = "third"
-	testData4 = 1
-	testData5 = 2
-	testData6 = 3
-)
+func ExampleForeach() {
+	list := New(1, 2, 3)
+	list.ForEach()
+	// Output:
+	// Node(data=1)
+	// Node(data=2)
+	// Node(data=3)
 
-func cleanup(impl *doublylinkedlist.List) {
-	impl = nil
-	return
 }
 
-/**
- * A set o general tests
- */
-func TestNewList(t *testing.T) {
-	dl := doublylinkedlist.New()
-	defer cleanup(dl)
+func ExampleValue() {
+	list := New(1, 2, 3)
+	got := list.Front()
+	fmt.Println(got.Value())
+	// Output:
+	// 1
+}
 
-	if assert.NotNil(t, dl) {
-		assert.Equal(t, 0, dl.Len())
-		assert.Nil(t, dl.First())
-		assert.Nil(t, dl.Last())
+func ExampleFirst() {
+	list := New(1, 2, 3)
+	got := list.First()
+	fmt.Println(got.Value())
+	// Output:
+	// 1
+}
+
+func ExampleLast() {
+	list := New(1, 2, 3)
+	got := list.Last()
+	fmt.Println(got.Value())
+	// Output:
+	// 3
+}
+
+func ExampleFind() {
+	list := New(1, 2, 3)
+	got := list.Find(2)
+	fmt.Println(got)
+	// Output:
+	// Node(data=2)
+}
+
+func ExampleHas() {
+	list := New(1, 2, 3)
+	got := list.Has(2)
+	fmt.Println(got)
+	// Output:
+	// true
+}
+
+func ExampleRemove() {
+	list := New(1, 2, 3, 4)
+	list.Remove(1)
+	list.Remove(3)
+	list.ForEach()
+	// Output:
+	// Node(data=2)
+	// Node(data=4)
+}
+
+func ExampleRemove2() {
+
+	list := New()
+	list.Add(3, 3, 3)
+	list.Remove(3)
+	list.ForEach()
+	// Output:
+	// Node(data=3)
+	// Node(data=3)
+}
+
+func ExampleInsertBefore() {
+	list := New(1, 2, 3)
+	list.InsertBefore(0, list.First())
+	list.ForEach()
+	// Output:
+	// Node(data=0)
+	// Node(data=1)
+	// Node(data=2)
+	// Node(data=3)
+
+}
+
+func ExampleInsertAfter() {
+	list := New(0, 2, 3)
+	list.InsertAfter(1, list.First())
+	list.ForEach()
+	// Output:
+	// Node(data=0)
+	// Node(data=1)
+	// Node(data=2)
+	// Node(data=3)
+
+}
+
+func ExampleMoveToFront() {
+	list := New(1, 2, 3)
+	node := list.Find(3)
+	moved := list.MoveToFront(node)
+	fmt.Println(moved)
+	list.ForEach()
+	// Output:
+	// true
+	// Node(data=3)
+	// Node(data=1)
+	// Node(data=2)
+}
+
+func ExampleMoveToBack() {
+	list := New(1, 2, 3)
+	node := list.Find(1)
+	moved := list.MoveToBack(node)
+	fmt.Println(moved)
+	list.ForEach()
+	// Output:
+	// true
+	// Node(data=2)
+	// Node(data=3)
+	// Node(data=1)
+}
+
+func ExampleMoveAfter() {
+	list := New(1, 2, 3)
+	node := list.Find(1)
+	moved := list.MoveAfter(node, list.Back())
+	fmt.Println(moved)
+	list.ForEach()
+	// Output:
+	// true
+	// Node(data=2)
+	// Node(data=3)
+	// Node(data=1)
+}
+
+func ExampleMoveBefore() {
+	list := New(1, 2, 3)
+	node := list.Find(1)
+	moved := list.MoveBefore(node, list.Back())
+	fmt.Println(moved)
+	list.ForEach()
+	// Output:
+	// true
+	// Node(data=2)
+	// Node(data=1)
+	// Node(data=3)
+}
+
+func ExampleReverse() {
+
+	list := New()
+	list.Add(1, 2, 3)
+	list.Reverse()
+	list.ForEach()
+	// Output:
+	// Node(data=3)
+	// Node(data=2)
+	// Node(data=1)
+}
+
+// не работает
+func ExampleRemoveAll() {
+
+	list := New()
+	list.Add(3, 3, 3)
+	list.RemoveAll(3)
+	list.ForEach()
+	// Output:
+	//
+}
+
+func TestNew(t *testing.T) {
+
+	got := New()
+
+	if got == nil || got == new(List) {
+		t.Errorf("list.New() = %v; want %v", got, New())
 	}
 }
 
-func TestListGeneral(t *testing.T) {
-	dl := doublylinkedlist.New()
-	defer cleanup(dl)
+func TestEmpty(t *testing.T) {
 
-	dl.PushFront(testData1)
-	dl.PushFront(testData2)
-	dl.PushFront(testData3)
+	list := New()
+	got := list.Empty()
 
-	dl.PushBack(testData4)
-	dl.PushBack(testData5)
-	dl.PushBack(testData6)
+	t.Run("For empty list", func(t *testing.T) {
+		if got != true {
+			t.Errorf("list.Empty() = %v; want %v", got, true)
+		}
+	})
 
-	if assert.NotNil(t, dl) {
-		assert.Equal(t, 6, dl.Len())
-		assert.Equal(t, testData3, dl.First().Data())
-		assert.Equal(t, testData6, dl.Last().Data())
+	t.Run("For non empty list", func(t *testing.T) {
+
+		list = New(1, 2, 3)
+		list.Clear()
+		got = list.Empty()
+
+		if got != true {
+			t.Errorf("list.Empty() = %v; want %v", got, true)
+		}
+
+	})
+
+}
+
+func TestAdd(t *testing.T) {
+
+	list := New()
+	list.Add(1, 2, 3)
+
+	got := list.Len()
+	want := 3
+
+	if got != want {
+		t.Errorf("list.Len() = %v; want %v", got, want)
+	}
+
+}
+
+func TestFrontAndPushFront(t *testing.T) {
+
+	list := New()
+
+	for want := 10; want >= 0; want-- {
+		list.PushFront(want)
+		node := list.Front()
+		got := node.Value()
+		if got != want {
+			t.Errorf("list.Front() = %v; want %v", got, want)
+		}
 	}
 }
 
-/**
- * A set of test for the doublylinkedlist functionality
- */
-func TestListImpl_SingleElementList(t *testing.T) {
-	dl := doublylinkedlist.New()
-	defer cleanup(dl)
+func TestBackAndPushBack(t *testing.T) {
 
-	dl.PushFront(testData1)
+	list := New()
 
-	if assert.NotNil(t, dl) {
-		assert.Equal(t, 1, dl.Len())
-		assert.True(t, dl.First() == dl.Last())
+	for want := 0; want <= 10; want++ {
+		list.PushBack(want)
+		node := list.Back()
+		got := node.Value()
+		if got != want {
+			t.Errorf("list.Back() = %v; want %v", got, want)
+		}
 	}
 }
 
-func TestListImpl_RemoveSingleElement(t *testing.T) {
-	dl := doublylinkedlist.New()
-	defer cleanup(dl)
+func TestInsertBefore(t *testing.T) {
 
-	dl.PushFront(testData1)
+	list := New(1, 2, 3)
+	got := list.InsertBefore(0, list.Front())
+	want := list.Front()
 
-	if assert.NotNil(t, dl) {
-		assert.Equal(t, 1, dl.Len())
-		assert.True(t, dl.First() == dl.Last())
-		dl.RemoveNode(dl.First())
-		assert.Equal(t, 0, dl.Len())
+	if got == nil || !reflect.DeepEqual(got, want) {
+		t.Errorf("list.InsertBefore() = %v; want %v", got, want)
+	}
+
+	gotValue := got.Value()
+	if gotValue != 0 {
+		t.Errorf("list.InsertBefore().Value(): %v; want %v", gotValue, 1)
+	}
+
+	wantLen := 4
+
+	if list.Len() != wantLen {
+		t.Errorf("list.Len() = %v; want %v", list.Len(), wantLen)
+	}
+
+}
+
+func TestInsertAfter(t *testing.T) {
+
+	list := New(0, 2, 3)
+	got := list.InsertAfter(1, list.Front())
+	want := list.Front().Next()
+
+	if got == nil || !reflect.DeepEqual(got, want) {
+		t.Errorf("list.InsertAfter() = %v; want %v", got, want)
+	}
+
+	gotValue := got.Value()
+	if gotValue != 1 {
+		t.Errorf("list.InsertAfter().Value(): %v; want %v", gotValue, 1)
+	}
+
+	wantLen := 4
+
+	if list.Len() != wantLen {
+		t.Errorf("list.Len() = %v; want %v", list.Len(), wantLen)
+	}
+
+}
+
+func TestLen(t *testing.T) {
+
+	list := New()
+	list.Add(1, 2, 3)
+
+	got := list.Len()
+	want := 3
+	if got != 3 {
+		t.Errorf("list.Len() = %v; want %v", got, want)
 	}
 }
 
-func TestListImpl_PushFront_And_Remove(t *testing.T) {
-	dl := doublylinkedlist.New()
-	defer cleanup(dl)
+func TestFind(t *testing.T) {
 
-	dl.PushFront(testData1)
-	dl.PushFront(testData2)
+	list := New()
+	list.Add(1, 2, 3)
 
-	if assert.NotNil(t, dl) {
-		assert.Equal(t, 2, dl.Len())
-		assert.False(t, dl.First() == dl.Last())
-		dl.RemoveNode(dl.Last())
-		assert.Equal(t, 1, dl.Len())
+	got := list.Find(3)
+	want := list.Back()
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("llist.Find = %v; want %v", got, want)
 	}
 }
 
-func TestListImpl_PushFront(t *testing.T) {
-	dl := doublylinkedlist.New()
-	defer cleanup(dl)
+func TestFindAll(t *testing.T) {
 
-	dl.PushFront(testData1)
-	dl.PushFront(testData2)
-	dl.PushBack(testData3)
-	dl.PushBack(testData4)
+	list := New()
+	list.Add(3, 3, 3)
 
-	if assert.NotNil(t, dl) {
-		assert.Equal(t, 4, dl.Len())
-		assert.False(t, dl.First() == dl.Last())
-		assert.Equal(t, testData3, dl.First().Next().Next().Data())
-		// Remove the second element and see what happens
-		dl.RemoveNode(dl.First().Next().Next())
-		assert.Equal(t, testData4, dl.First().Next().Next().Data())
-		assert.Equal(t, 3, dl.Len())
+	got := len(list.FindAll(3))
+	want := 3
+
+	if got != want {
+		t.Errorf("len(list.FindAll()) = %v; want %v", got, want)
 	}
 }
 
-/**
- * TC scenario:
- * 1) Initialise an instance of DLL
- * 1) Add two elements
- * 3) Remove elements one by one and check the doublylinkedlist length
- * 4) When all the elements are removed, check the doublylinkedlist attributes -> head-nil, tail-nil
- * 5) Repeat step 2) and check the doublylinkedlist
- */
-func TestListImpl_Repeatability(t *testing.T) {
-	// 1)
-	dl := doublylinkedlist.New()
-	defer cleanup(dl)
-	// 2)
-	assert.Equal(t, 0, dl.Len())
-	dl.PushFront(testData1)
-	assert.Equal(t, 1, dl.Len())
-	dl.PushBack(testData2)
-	assert.Equal(t, 2, dl.Len())
-	// 3)
-	dl.RemoveNode(dl.First())
-	assert.Equal(t, 1, dl.Len())
-	dl.RemoveNode(dl.Last())
-	assert.Equal(t, 0, dl.Len())
-	// 4)
-	if assert.NotNil(t, dl) {
-		assert.Nil(t, dl.First())
-		assert.Nil(t, dl.Last())
+func TestRemoveNode(t *testing.T) {
+
+	list := New()
+	list.Add(1, 2, 3)
+	want := list.Front().Next()
+	list.RemoveNode(list.Front())
+	got := list.Front()
+
+	if got != want {
+		t.Errorf("list.RemoveNode() = %v; want %v", got, want)
 	}
-	// 5)
-	dl.PushFront(testData3)
-	assert.Equal(t, 1, dl.Len())
-	dl.PushBack(testData4)
-	assert.Equal(t, 2, dl.Len())
-	assert.Equal(t, testData3, dl.First().Data())
-	assert.Equal(t, testData4, dl.Last().Data())
+
+	if got.Value() != 2 {
+		t.Errorf("list.Front().Value() = %v; want %v", got.Value(), 2)
+	}
+
+	gotLen := list.Len()
+	wantlen := 2
+	if gotLen != wantlen {
+		t.Errorf("list.Len() = %v; want %v", gotLen, wantlen)
+	}
 }
 
-func TestList(t *testing.T) {
-	dl := doublylinkedlist.New(1, 2, 3, 4)
-	dl.Add(5, 6, 7, 3)
+// не удаляет все вхождения
+func TestRemoveAll(t *testing.T) {
 
-	dl.ForEach()
-	println("-----------------------")
-	fmt.Printf("%v\n", dl.Front())
-	fmt.Printf("%v\n", dl.Back())
+	list := New()
+	list.Add(3, 3, 3)
 
-	println("-----------------------")
-	dl.PushFront(0)
-	dl.PushBack(8)
-	fmt.Printf("%v\n", dl.Front())
-	fmt.Printf("%v\n", dl.Back())
-	println("-----------------------")
-	dl.ForEach()
-	println("-----------------------")
+	wantCount := len(list.FindAll(3))
+	got := list.RemoveAll(3)
 
-	dl.Remove(7)
-	dl.Remove(0)
-	dl.ForEach()
+	if got != wantCount {
+		t.Errorf("list.RemoveAll() = %v; want %v", got, wantCount)
+	}
 
-	println("-----------------------")
-	node := dl.Find(4)
-	fmt.Printf("%v\n", node)
-	println("-----------------------")
+	gotLen := list.Len()
+	if gotLen != 0 {
+		t.Errorf("list.Len() = %v; want %v", gotLen, 0)
+	}
+}
 
-	dl.MoveToFront(node)
-	dl.ForEach()
+func TestClear(t *testing.T) {
 
-	println("-----------------------")
-	node = dl.Find(5)
-	fmt.Printf("%v\n", node)
-	println("-----------------------")
-	dl.MoveToBack(node)
-	dl.ForEach()
+	list := New()
+	list.Add(1, 2, 3)
 
-	dl.Remove(5)
-	println("-----------------------")
-	dl.ForEach()
-	println("-----------------------")
-
-	fmt.Printf("%v\n", dl.FindAll(3))
-
-	println("-----------------------")
-	dl.MoveAfter(dl.Find(4), dl.Find(8))
-	dl.ForEach()
-	println("-----------------------")
-	fmt.Printf("%v\n", dl.Back())
-
-	println("-----------------------")
-	dl.MoveBefore(dl.Find(8), dl.Front())
-	dl.ForEach()
-	println("-----------------------")
-	fmt.Printf("%v\n", dl.Front())
-
-	println("-----------------------")
-	dl.InsertBefore(100, dl.Front())
-	dl.ForEach()
-	println("-----------------------")
-	fmt.Printf("%v\n", dl.Front())
-
-	println("-----------------------")
-	dl.InsertAfter(200, dl.Front())
-	dl.InsertAfter(200, dl.Front())
-	dl.ForEach()
-	println("-----------------------")
-	fmt.Printf("%v\n", dl.Front())
-
-	println("-----------------------")
-	dl.InsertAfter(300, dl.Back())
-	dl.ForEach()
-	println("-----------------------")
-	fmt.Printf("%v\n", dl.Back())
-
-	println("----------x-------------")
-	dl.Reverse()
-	dl.ForEach()
-	println("-----------------------")
-	fmt.Printf("%v\n", dl.Front())
-	println("-----------------------")
-	dl = doublylinkedlist.New(1, 2, 3, 4, 5, 6, 7, 8, 9)
-	dl.InsertAfter(200, dl.Front())
-	dl.ForEach()
-	println("-----------------------")
-	dl.Reverse()
-	dl.ForEach()
+	list.Clear()
+	if !reflect.DeepEqual(list, New()) {
+		t.Errorf("list.Clear() = %v; want %v", list, New())
+	}
 
 }
