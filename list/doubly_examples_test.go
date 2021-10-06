@@ -168,14 +168,14 @@ func ExampleInsertBefore() {
 }
 
 func ExampleInsertAfter() {
-	list := New(0, 2, 3)
-	list.InsertAfter(1, list.First())
+	list := New(1, 2, 3)
+	list.InsertAfter(4, list.Back())
 	list.ForEach("%+v")
 	// Output:
-	// Node(data=0)
 	// Node(data=1)
 	// Node(data=2)
 	// Node(data=3)
+    // Node(data=4)
 
 }
 

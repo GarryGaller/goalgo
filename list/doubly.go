@@ -9,6 +9,7 @@ type Node struct {
 	data interface{}
 	prev *Node
 	next *Node
+    list *List
 }
 
 type List struct {
@@ -130,6 +131,15 @@ func (l *List) Add(values ...interface{}) {
 		l.PushBack(value)
 	}
 }
+  
+func (l *List) Append(values ...interface{}) {
+	l.Add(values...)
+}
+
+func (l *List) Prepend(values ...interface{}) {
+	 // TO DO
+} 
+
 
 func (l *List) Back() *Node {
 	return l.tail
@@ -177,7 +187,7 @@ func (l *List) PushBack(data interface{}) (out *Node) {
 		return nil
 	}
 
-	out = &Node{data: data}
+	out = &Node{data: data, list: l}
 
 	l.push(out, "back")
 	return
@@ -189,7 +199,7 @@ func (l *List) PushFront(data interface{}) (out *Node) {
 		return nil
 	}
 
-	out = &Node{data: data}
+	out = &Node{data: data, list: l}
 
 	l.push(out, "front")
 	return
@@ -197,11 +207,11 @@ func (l *List) PushFront(data interface{}) (out *Node) {
 
 func (l *List) InsertAfter(data interface{}, mark *Node) (out *Node) {
 
-	if mark == nil {
+	if mark == nil || mark.list != l {
 		return nil
 	}
 
-	node := &Node{data: data}
+	node := &Node{data: data, list: l}
 	if l.insert(node, mark, "after") {
 		out = node
 	}
@@ -211,11 +221,11 @@ func (l *List) InsertAfter(data interface{}, mark *Node) (out *Node) {
 
 func (l *List) InsertBefore(data interface{}, mark *Node) (out *Node) {
 
-	if mark == nil {
+	if mark == nil || mark.list != l {
 		return nil
 	}
 
-	node := &Node{data: data}
+	node := &Node{data: data, list: l}
 	if l.insert(node, mark, "before") {
 		out = node
 	}
@@ -224,18 +234,34 @@ func (l *List) InsertBefore(data interface{}, mark *Node) (out *Node) {
 }
 
 func (l *List) MoveAfter(node, mark *Node) bool {
-
-	return l.move(node, mark, "after")
+    
+    if node == nil || mark == nil || l.size <= 1 {
+        return false
+    }
+ 
+    if node.list != l || node == mark || mark.list != l {
+		return false
+    }
+	
+    return l.move(node, mark, "after")
 }
 
 func (l *List) MoveBefore(node, mark *Node) bool {
+    
+    if node == nil || mark == nil || l.size <= 1 {
+        return false
+    }
+ 
+    if node.list != l || node == mark || mark.list != l {
+		return false
+    }
 
 	return l.move(node, mark, "before")
 }
 
 func (l *List) MoveToBack(node *Node) bool {
 
-	if node == nil {
+	if node == nil || node.list != l || node == l.tail {
 		return false
 	}
 
@@ -249,7 +275,7 @@ func (l *List) MoveToBack(node *Node) bool {
 
 func (l *List) MoveToFront(node *Node) bool {
 
-	if node == nil {
+	if node == nil || node.list != l || node == l.head {
 		return false
 	}
 
@@ -293,7 +319,7 @@ func (l *List) RemoveAll(v interface{}) int {
 }
 
 func (l *List) RemoveNode(node *Node) {
-	if node != nil {
+	if node != nil && node.list == l {
 		l.remove(node)
 	}
 }
@@ -332,10 +358,6 @@ func (l *List) Reverse() {
 
 func (l *List) push(node *Node, position string) {
 
-	if node == nil {
-		return
-	}
-
 	if l.size == 0 {
 		l.head = node
 		l.tail = node
@@ -357,10 +379,6 @@ func (l *List) push(node *Node, position string) {
 }
 
 func (l *List) insert(node, mark *Node, position string) bool {
-
-	if mark == nil {
-		return false
-	}
 
 	switch position {
 
@@ -395,17 +413,12 @@ func (l *List) insert(node, mark *Node, position string) bool {
 }
 
 func (l *List) remove(node *Node) {
-	if node != nil {
-		l.unlink(node)
-		l.delete(node)
-	}
+	l.unlink(node)
+	l.delete(node)
 }
 
 func (l *List) unlink(node *Node) {
 
-	if node == nil {
-		return
-	}
 	// если узел - голова
 	if node == l.head {
 		// говорим что новая голова - следующий за head узел
@@ -433,27 +446,23 @@ func (l *List) unlink(node *Node) {
 
 func (l *List) delete(node *Node) {
 
-	if node != nil {
-		node.next = nil
-		node.prev = nil
-		l.size--
+	node.next = nil
+    node.prev = nil
+    l.size--
 
-		if l.size == 0 {
-			l.Clear()
-		}
+    if l.size == 0 {
+        l.Clear()
+    }
 
-		node = nil
-	}
+    node = nil
 }
 
 func (l *List) move(node, mark *Node, position string) (out bool) {
 
-	if l.size != 0 && node != nil && mark != nil {
-		l.unlink(node)
-		out = l.insert(node, mark, position)
-	}
-
-	return
+	l.unlink(node)
+	out = l.insert(node, mark, position)
+	
+    return
 }
 
 //         1                            2                  3
