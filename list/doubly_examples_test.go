@@ -10,20 +10,19 @@ func ExampleSlice() {
 	// Output:
 	// []interface {}{1, 2, 3}
 }
- 
 
 func ExampleString() {
 	list := New(1, 2, 3)
 	list1 := New("1", "2", "3")
-    list2 := New()
-    fmt.Println(list.String())
+	list2 := New()
+	fmt.Println(list.String())
 	fmt.Println(list1.String())
-    fmt.Println(list2.String())
-    // Output:
+	fmt.Println(list2.String())
+	// Output:
 	// [1, 2, 3]
-    // ["1", "2", "3"]
-    // []
-    
+	// ["1", "2", "3"]
+	// []
+
 }
 
 func ExampleForeach() {
@@ -35,7 +34,7 @@ func ExampleForeach() {
 	// 3
 
 }
-   
+
 func ExampleForeach2() {
 	list := New("1", "2", "3")
 	list.ForEach()
@@ -46,7 +45,6 @@ func ExampleForeach2() {
 
 }
 
-
 func ExampleForeachWithArg() {
 	list := New(1, 2, 3)
 	list.ForEach("%+v")
@@ -56,15 +54,13 @@ func ExampleForeachWithArg() {
 	// Node(data=3)
 
 }
- 
+
 func ExampleForeachWithInvalidArg() {
 	list := New(1, 2, 3)
 	list.ForEach("%Z")
 	// Output:
 	// Invalid format:%Z
 }
-
-
 
 func ExampleValue() {
 	list := New(1, 2, 3)
