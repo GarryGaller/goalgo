@@ -9,7 +9,7 @@ type Node struct {
 	data interface{}
 	prev *Node
 	next *Node
-    list *List
+	list *List
 }
 
 type List struct {
@@ -131,15 +131,14 @@ func (l *List) Add(values ...interface{}) {
 		l.PushBack(value)
 	}
 }
-  
+
 func (l *List) Append(values ...interface{}) {
 	l.Add(values...)
 }
 
 func (l *List) Prepend(values ...interface{}) {
-	 // TO DO
-} 
-
+	// TO DO
+}
 
 func (l *List) Back() *Node {
 	return l.tail
@@ -234,27 +233,27 @@ func (l *List) InsertBefore(data interface{}, mark *Node) (out *Node) {
 }
 
 func (l *List) MoveAfter(node, mark *Node) bool {
-    
-    if node == nil || mark == nil || l.size <= 1 {
-        return false
-    }
- 
-    if node.list != l || node == mark || mark.list != l {
+
+	if node == nil || mark == nil || l.size <= 1 {
 		return false
-    }
-	
-    return l.move(node, mark, "after")
+	}
+
+	if node.list != l || node == mark || mark.list != l {
+		return false
+	}
+
+	return l.move(node, mark, "after")
 }
 
 func (l *List) MoveBefore(node, mark *Node) bool {
-    
-    if node == nil || mark == nil || l.size <= 1 {
-        return false
-    }
- 
-    if node.list != l || node == mark || mark.list != l {
+
+	if node == nil || mark == nil || l.size <= 1 {
 		return false
-    }
+	}
+
+	if node.list != l || node == mark || mark.list != l {
+		return false
+	}
 
 	return l.move(node, mark, "before")
 }
@@ -447,22 +446,22 @@ func (l *List) unlink(node *Node) {
 func (l *List) delete(node *Node) {
 
 	node.next = nil
-    node.prev = nil
-    l.size--
+	node.prev = nil
+	l.size--
 
-    if l.size == 0 {
-        l.Clear()
-    }
+	if l.size == 0 {
+		l.Clear()
+	}
 
-    node = nil
+	node = nil
 }
 
 func (l *List) move(node, mark *Node, position string) (out bool) {
 
 	l.unlink(node)
 	out = l.insert(node, mark, position)
-	
-    return
+
+	return
 }
 
 //         1                            2                  3
