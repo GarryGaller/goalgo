@@ -2,6 +2,7 @@ package doublylinkedlist
 
 import (
 	"fmt"
+	"strings"
 )
 
 type Node struct {
@@ -38,18 +39,75 @@ func (n *Node) Prev() *Node {
 	return n.prev
 }
 
-func (l *List) ForEach() {
-	for n := l.head; n != nil; n = n.next {
-		fmt.Printf("%v\n", n)
-	}
-}
-
 func New(values ...interface{}) *List {
 	list := &List{}
 	if len(values) > 0 {
 		list.Add(values...)
 	}
 	return list
+}
+
+func (l *List) Slice() (out []interface{}) {
+
+	for n := l.Front(); n != nil; n = n.Next() {
+		out = append(out, n.Value())
+	}
+
+	return
+}
+
+func (l *List) Values() (out []interface{}) {
+
+	for n := l.Front(); n != nil; n = n.Next() {
+		out = append(out, n.Value())
+	}
+
+	return
+}
+
+func (l *List) ForEach(format ...string) {
+	f := ""
+	if len(format) > 0 {
+		f = format[0]
+	}
+
+	switch f {
+
+	case "":
+		for n := l.head; n != nil; n = n.next {
+			fmt.Printf("%#v\n", n.Value())
+		}
+	case "%v":
+		for n := l.head; n != nil; n = n.next {
+			fmt.Printf("%v\n", n)
+		}
+
+	case "%+v":
+		for n := l.head; n != nil; n = n.next {
+			fmt.Printf("%+v\n", n)
+		}
+
+	case "%#v":
+		for n := l.head; n != nil; n = n.next {
+			fmt.Printf("%#v\n", n)
+		}
+	default:
+		fmt.Printf("Invalid format:%s\n", f)
+	}
+}
+
+func (l *List) String() (out string) {
+
+	var builder strings.Builder
+	builder.WriteString("[")
+
+	for n := l.Front(); n != nil; n = n.Next() {
+		builder.WriteString(fmt.Sprintf("%#v", n.Value()))
+		builder.WriteString(", ")
+	}
+	out = strings.TrimSuffix(builder.String(), ", ") + "]"
+
+	return
 }
 
 func (l *List) Len() int {
