@@ -2,7 +2,7 @@ package queue
 
 import (
 	"errors"
-	"strconv"
+	"fmt"
 	"strings"
 )
 
@@ -57,23 +57,16 @@ func (q *Queue) Dequeue() (top interface{}, err error) {
 	return
 }
 
-func (q *Queue) String() string {
-	ret := make([]string, 0, q.size)
-	for _, i := range q.data {
-		switch i.(type) {
-		case string:
-			ret = append(ret, i.(string))
-		case int:
-			ret = append(ret, strconv.Itoa(i.(int)))
-		case int32:
-			ret = append(ret, strconv.FormatInt(int64(i.(int32)), 10))
-		case int64:
-			ret = append(ret, strconv.FormatInt(i.(int64), 10))
+func (q *Queue) String() (out string) {
 
-		case float64:
-			ret = append(ret, strconv.FormatFloat(i.(float64), 'f', -1, 64))
+	var builder strings.Builder
+	builder.WriteString("[")
 
-		}
+	for _, value := range q.data {
+		builder.WriteString(fmt.Sprintf("%#v", value))
+		builder.WriteString(", ")
 	}
-	return "Queue(" + strings.Join(ret, ",") + ")"
+	out = strings.TrimSuffix(builder.String(), ", ") + "]"
+
+	return
 }

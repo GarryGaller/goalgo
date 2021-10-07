@@ -18,11 +18,11 @@ func TestNew(t *testing.T) {
 func TestEmpty(t *testing.T) {
 
     list := New()
-    got := list.Empty()
+    got := list.IsEmpty()
 
     t.Run("For empty list", func(t *testing.T) {
         if got != true {
-            t.Errorf("list.Empty() = %v; want %v", got, true)
+            t.Errorf("list.IsEmpty() = %v; want %v", got, true)
         }
     })
 
@@ -30,10 +30,10 @@ func TestEmpty(t *testing.T) {
 
         list = New(1, 2, 3)
         list.Clear()
-        got = list.Empty()
+        got = list.IsEmpty()
 
         if got != true {
-            t.Errorf("list.Empty() = %v; want %v", got, true)
+            t.Errorf("list.IsEmpty() = %v; want %v", got, true)
         }
 
     })

@@ -121,7 +121,7 @@ func (l *List) Len() int {
 	return l.size
 }
 
-func (l *List) Empty() bool {
+func (l *List) IsEmpty() bool {
 	return l.size == 0
 }
 
@@ -505,6 +505,39 @@ func (l *List) move(node, mark *Node, position string) (out bool) {
 
 	return
 }
+
+// list.New
+// list.First
+// list.Last
+// list.Front
+// list.Back
+// list.Clear
+// list.IsEmpty
+// list.Len
+// list.Add
+// list.Append
+// list.Prepend
+// list.PushBack
+// list.PushBackList
+// list.PushFront
+// list.PushFrontList
+// list.Remove
+// list.RemoveAll
+// list.RemoveNode
+// list.Reverse
+// list.Swap
+// list.Find
+// list.FindAll
+// list.InsertAfter
+// list.InsertBefore
+// list.MobeAfter
+// list.MoveBefore
+// list.MoveToBack
+// list.MoveToFirst
+// list.Slice
+// list.Values
+// list.String
+// list.ForEach
 
 //              1                                2                        3
 // nil <- prev <=> next-> 2           1 <- prev <=> next-> 3   2 <- prev <=> next-> nil
