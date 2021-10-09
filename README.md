@@ -1,7 +1,5 @@
 # goalgo
 
-# Data_structures
-
 Implementation of data structures and algorithms
 
 
