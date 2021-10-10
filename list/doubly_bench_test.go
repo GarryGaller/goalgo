@@ -1,49 +1,48 @@
 package doublylinkedlist
 
 import (
-    "fmt"
-    "testing"
+	"fmt"
+	"testing"
 )
 
 func BenchmarkPushBack(b *testing.B) {
 
-    list := New()
-    
-    for i := 0; i < 100000; i++ {
-        list.PushBack(fmt.Sprint(i))
-    }
+	list := New()
+
+	for i := 0; i < 100000; i++ {
+		list.PushBack(fmt.Sprint(i))
+	}
 
 }
-
 
 func BenchmarkClear(b *testing.B) {
 
-    list := New()
-    
-    for i := 0; i < 100000; i++ {
-        list.PushBack(fmt.Sprint(i))
-    }
+	list := New()
 
-    b.ResetTimer()
+	for i := 0; i < 100000; i++ {
+		list.PushBack(fmt.Sprint(i))
+	}
 
-    for i := 0; i < b.N; i++ {
-        list.Clear()
-    }
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		list.Clear()
+	}
 }
 
-func BenchmarkClear2(b *testing.B) {
+func BenchmarkClearOld(b *testing.B) {
 
-    list := New()
-    
-    for i := 0; i < 100000; i++ {
-        list.PushBack(fmt.Sprint(i))
-    }
+	list := New()
 
-    b.ResetTimer()
+	for i := 0; i < 100000; i++ {
+		list.PushBack(fmt.Sprint(i))
+	}
 
-    for i := 0; i < b.N; i++ {
-        list.Clear2()
-    }
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		list.ClearOld()
+	}
 }
 
 // go test -bench=. -benchmem -cpuprofile=cpu.prof -memprofile=mem.prof

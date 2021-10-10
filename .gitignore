@@ -12,7 +12,7 @@
 *.cookie
 *.lnk
 *.svg
-*.pprof
+*.prof
 
 !assets/robots.txt
 logs/
