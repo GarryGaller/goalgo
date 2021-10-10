@@ -42,31 +42,16 @@ func ExampleForeach() {
 
 }
 
-func ExampleForeach2() {
+func ExampleForeachWithFunc() {
 	list := New("1", "2", "3")
-	list.ForEach()
+	list.ForEach(func(n ...interface{}) (int, error) {
+		return fmt.Printf("%v\n", n...)
+	})
 	// Output:
-	// "1"
-	// "2"
-	// "3"
+	// Node(data="1")
+	// Node(data="2")
+	// Node(data="3")
 
-}
-
-func ExampleForeachWithArg() {
-	list := New(1, 2, 3)
-	list.ForEach("%+v")
-	// Output:
-	// Node(data=1)
-	// Node(data=2)
-	// Node(data=3)
-
-}
-
-func ExampleForeachWithInvalidArg() {
-	list := New(1, 2, 3)
-	list.ForEach("%Z")
-	// Output:
-	// Invalid format:%Z
 }
 
 func ExampleValue() {
@@ -113,10 +98,10 @@ func ExampleRemove() {
 	list := New(1, 2, 3, 4)
 	list.Remove(1)
 	list.Remove(3)
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
-	// Node(data=2)
-	// Node(data=4)
+	// 2
+	// 4
 }
 
 func ExampleRemove2() {
@@ -125,21 +110,21 @@ func ExampleRemove2() {
 	list.Add(3, 3, 3)
 	removed := list.Remove(3)
 	fmt.Println(removed)
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
 	// true
-	// Node(data=3)
-	// Node(data=3)
+	// 3
+	// 3
 }
 
 func ExampleRemoveNode() {
 	list := New(1, 2, 3, 4)
 	list.RemoveNode(list.First())
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
-	// Node(data=2)
-	// Node(data=3)
-	// Node(data=4)
+	// 2
+	// 3
+	// 4
 }
 
 func ExampleRemoveAll() {
@@ -157,32 +142,32 @@ func ExampleRemoveAll2() {
 	list := New()
 	list.Add(1, 3, 3)
 	list.RemoveAll(3)
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
-	// Node(data=1)
+	// 1
 }
 
 func ExampleInsertBefore() {
 	list := New(1, 2, 3)
 	list.InsertBefore(0, list.First())
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
-	// Node(data=0)
-	// Node(data=1)
-	// Node(data=2)
-	// Node(data=3)
+	// 0
+	// 1
+	// 2
+	// 3
 
 }
 
 func ExampleInsertAfter() {
 	list := New(1, 2, 3)
 	list.InsertAfter(4, list.Back())
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
-	// Node(data=1)
-	// Node(data=2)
-	// Node(data=3)
-	// Node(data=4)
+	// 1
+	// 2
+	// 3
+	// 4
 
 }
 
@@ -191,12 +176,12 @@ func ExampleMoveToFront() {
 	node := list.Find(3)
 	moved := list.MoveToFront(node)
 	fmt.Println(moved)
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
 	// true
-	// Node(data=3)
-	// Node(data=1)
-	// Node(data=2)
+	// 3
+	// 1
+	// 2
 }
 
 func ExampleMoveToBack() {
@@ -204,12 +189,12 @@ func ExampleMoveToBack() {
 	node := list.Find(1)
 	moved := list.MoveToBack(node)
 	fmt.Println(moved)
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
 	// true
-	// Node(data=2)
-	// Node(data=3)
-	// Node(data=1)
+	// 2
+	// 3
+	// 1
 }
 
 func ExampleMoveAfter() {
@@ -217,12 +202,12 @@ func ExampleMoveAfter() {
 	node := list.Find(1)
 	moved := list.MoveAfter(node, list.Back())
 	fmt.Println(moved)
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
 	// true
-	// Node(data=2)
-	// Node(data=3)
-	// Node(data=1)
+	// 2
+	// 3
+	// 1
 }
 
 func ExampleMoveBefore() {
@@ -230,12 +215,12 @@ func ExampleMoveBefore() {
 	node := list.Find(1)
 	moved := list.MoveBefore(node, list.Back())
 	fmt.Println(moved)
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
 	// true
-	// Node(data=2)
-	// Node(data=1)
-	// Node(data=3)
+	// 2
+	// 1
+	// 3
 }
 
 func ExampleReverse() {
@@ -243,11 +228,11 @@ func ExampleReverse() {
 	list := New()
 	list.Add(1, 2, 3)
 	list.Reverse()
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
-	// Node(data=3)
-	// Node(data=2)
-	// Node(data=1)
+	// 3
+	// 2
+	// 1
 }
 
 func ExampleSwap() {
@@ -256,12 +241,12 @@ func ExampleSwap() {
 	list.Add(1, 2, 3)
 	swapped := list.Swap(list.First(), list.Last())
 	fmt.Println(swapped)
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
 	// true
-	// Node(data=3)
-	// Node(data=2)
-	// Node(data=1)
+	// 3
+	// 2
+	// 1
 }
 
 func ExamplePrepend() {
@@ -269,40 +254,67 @@ func ExamplePrepend() {
 	list := New()
 	list.Add(4, 5, 6)
 	list.Prepend(1, 2, 3)
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
-	// Node(data=1)
-	// Node(data=2)
-	// Node(data=3)
-	// Node(data=4)
-	// Node(data=5)
-	// Node(data=6)
+	// 1
+	// 2
+	// 3
+	// 4
+	// 5
+	// 6
 }
 
 func ExamplePushBackList() {
 	list := New(1, 2, 3)
 	list2 := New(4, 5, 6)
 	list.PushBackList(list2)
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
-	// Node(data=1)
-	// Node(data=2)
-	// Node(data=3)
-	// Node(data=4)
-	// Node(data=5)
-	// Node(data=6)
+	// 1
+	// 2
+	// 3
+	// 4
+	// 5
+	// 6
 }
 
 func ExamplePushFrontList() {
 	list := New(4, 5, 6)
 	list2 := New(1, 2, 3)
 	list.PushFrontList(list2)
-	list.ForEach("%+v")
+	list.ForEach()
 	// Output:
-	// Node(data=1)
-	// Node(data=2)
-	// Node(data=3)
-	// Node(data=4)
-	// Node(data=5)
-	// Node(data=6)
+	// 1
+	// 2
+	// 3
+	// 4
+	// 5
+	// 6
+}
+
+func ExampleRemoveFront() {
+
+	list := New(1, 2, 3)
+	list.RemoveFront()
+	fmt.Println(list.String())
+	// Output:
+	// [2, 3]
+}
+
+func ExampleRemoveBack() {
+
+	list := New(1, 2, 3)
+	list.RemoveBack()
+	fmt.Println(list.String())
+	// Output:
+	// [1, 2]
+}
+
+func ExampleClear() {
+
+	list := New(1, 2, 3)
+	list.Clear()
+	fmt.Println(list.String())
+	// Output:
+	// []
 }

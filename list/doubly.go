@@ -66,7 +66,20 @@ func (l *List) Values() (out []interface{}) {
 	return
 }
 
-func (l *List) ForEach(format ...string) {
+func (l *List) ForEach(f ...func(...interface{}) (int, error)) {
+
+	if len(f) != 0 {
+		for n := l.head; n != nil; n = n.next {
+			f[0](n)
+		}
+	} else {
+		for n := l.head; n != nil; n = n.next {
+			fmt.Printf("%#v\n", n.Value())
+		}
+	}
+}
+
+func (l *List) ForEach2(format ...string) {
 	f := ""
 	if len(format) > 0 {
 		f = format[0]
@@ -126,6 +139,11 @@ func (l *List) IsEmpty() bool {
 }
 
 func (l *List) Clear() {
+
+	for n := l.Back(); n != nil; n = n.Prev() {
+		n.next = nil
+	}
+
 	l.size = 0
 	l.head = nil
 	l.tail = nil
@@ -152,7 +170,7 @@ func (l *List) Prepend(values ...interface{}) {
 
 }
 
-func (l *List) Swap(i, j *Node) bool {
+func (l *List) SwapValue(i, j *Node) bool {
 
 	if i == nil || i.list != l || j == nil || j.list != l {
 		return false
@@ -164,6 +182,10 @@ func (l *List) Swap(i, j *Node) bool {
 
 	return true
 
+}
+
+func (l *List) ReplaceValue(n *Node, v interface{}) {
+	n.data = v
 }
 
 func (l *List) PushBackList(other *List) {
@@ -335,6 +357,22 @@ func (l *List) Remove(v interface{}) bool {
 	return false
 }
 
+func (l *List) RemoveFront() {
+	l.remove(l.Front())
+}
+
+func (l *List) RemoveBack() {
+	l.remove(l.Back())
+}
+
+func (l *List) RemoveFirst() {
+	l.remove(l.First())
+}
+
+func (l *List) RemoveLast() {
+	l.remove(l.Last())
+}
+
 /*
 // incorrect version
 func (l *List) Bad_RemoveAll(v interface{}) int {
@@ -490,11 +528,6 @@ func (l *List) delete(node *Node) {
 	node.next = nil
 	node.prev = nil
 	l.size--
-
-	if l.size == 0 {
-		l.Clear()
-	}
-
 	node = nil
 }
 
@@ -521,11 +554,16 @@ func (l *List) move(node, mark *Node, position string) (out bool) {
 // list.PushBackList
 // list.PushFront
 // list.PushFrontList
+// list.RemoveFront
+// list.RemoveBack
+// list.RemoveFirst
+// list.RemoveLast
 // list.Remove
 // list.RemoveAll
 // list.RemoveNode
 // list.Reverse
-// list.Swap
+// list.SwapValue
+// list.ReplaceValue
 // list.Find
 // list.FindAll
 // list.InsertAfter
