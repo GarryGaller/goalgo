@@ -11,6 +11,8 @@
 *.dylib
 *.cookie
 *.lnk
+*.svg
+*.pprof
 
 !assets/robots.txt
 logs/
