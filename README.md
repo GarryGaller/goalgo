@@ -4,6 +4,7 @@ Implementation of data structures and algorithms
 
 
 ## Algorithms
+- Insertion sort
 - Selection sort 
 - Merge sort
 - Quick sort
