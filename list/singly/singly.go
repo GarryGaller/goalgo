@@ -34,7 +34,7 @@ func (l *LinkedList) Add(values ...interface{}) {
 }
 
 func (l *LinkedList) Append(values ...interface{}) {
-    l.Add(values...)
+	l.Add(values...)
 }
 
 func (l *LinkedList) First() *Node {
@@ -44,19 +44,18 @@ func (l *LinkedList) First() *Node {
 func (l *LinkedList) Front() *Node {
 	return l.head
 }
- 
+
 func (l *LinkedList) Get(index int) *Node {
-    idx := 0
-    for n := l.head; n != nil; n = n.next {
-        if idx == index {
-            return n
-        } 
-        idx++ 
-    }
-    
-    return nil
+	idx := 0
+	for n := l.head; n != nil; n = n.next {
+		if idx == index {
+			return n
+		}
+		idx++
+	}
+
+	return nil
 }
-  
 
 func (l *LinkedList) Find(v interface{}) *Node {
 	for n := l.head; n != nil; n = n.next {
@@ -67,7 +66,6 @@ func (l *LinkedList) Find(v interface{}) *Node {
 	return nil
 }
 
-
 func (l *LinkedList) Len() int {
 	return l.size
 }
@@ -75,8 +73,6 @@ func (l *LinkedList) Len() int {
 func (l *LinkedList) IsEmpty() bool {
 	return l.size == 0
 }
-
-
 
 func (l *LinkedList) Clear() {
 
@@ -128,3 +124,11 @@ func (l *LinkedList) Reverse() {
 	}
 	l.head = prev
 }
+
+//TODO:
+//IndexOf(value)
+//Remove(index)
+//Remove(node)
+//Has/Contains
+//Swap
+//Set(index, value)

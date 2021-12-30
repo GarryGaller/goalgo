@@ -52,6 +52,28 @@ func TestAdd(t *testing.T) {
 	}
 
 }
+  
+
+func TestPopFrontAndFirst(t *testing.T) {
+
+	list := New()
+	list.Add(1, 2, 3)
+
+	node := list.PopFront()
+	got := node.value
+    want := 1
+
+	if got != want {
+		t.Errorf("list.PopFront() = %v; want %v", got, want)
+	}
+    got = list.First().Value()
+    want = 2
+    if got != want {
+		t.Errorf("list.First() = %v; want %v", got, want)
+	}
+
+}
+
 
 func TestFind(t *testing.T) {
 
