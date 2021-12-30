@@ -9,7 +9,7 @@ func TestNew(t *testing.T) {
 
     got := New()
 
-    if got == nil || got == new(DoublyLinkedList) {
+    if got == nil {
         t.Errorf("list.New() = %v; want %v", got, New())
     }
 }
