@@ -9,7 +9,7 @@ func TestNew(t *testing.T) {
 
     got := New()
 
-    if got == nil || got == new(List) {
+    if got == nil || got == new(DoublyLinkedList) {
         t.Errorf("list.New() = %v; want %v", got, New())
     }
 }
@@ -148,7 +148,7 @@ func TestFind(t *testing.T) {
     want := list.Back()
 
     if !reflect.DeepEqual(got, want) {
-        t.Errorf("llist.Find = %v; want %v", got, want)
+        t.Errorf("list.Find() = %v; want %v", got, want)
     }
 }
 

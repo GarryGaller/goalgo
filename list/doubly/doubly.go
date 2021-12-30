@@ -9,10 +9,10 @@ type Node struct {
     data interface{}
     prev *Node
     next *Node
-    list *List
+    list *DoublyLinkedList
 }
 
-type List struct {
+type DoublyLinkedList struct {
     head *Node
     tail *Node
     size int
@@ -40,15 +40,15 @@ func (n *Node) Prev() *Node {
     return n.prev
 }
 
-func New(values ...interface{}) *List {
-    list := &List{}
+func New(values ...interface{}) *DoublyLinkedList {
+    list := &DoublyLinkedList{}
     if len(values) > 0 {
         list.Add(values...)
     }
     return list
 }
 
-func (l *List) Slice() (out []interface{}) {
+func (l *DoublyLinkedList) Slice() (out []interface{}) {
 
     for n := l.head; n != nil; n = n.next {
         out = append(out, n.data)
@@ -57,7 +57,7 @@ func (l *List) Slice() (out []interface{}) {
     return
 }
 
-func (l *List) Values() (out []interface{}) {
+func (l *DoublyLinkedList) Values() (out []interface{}) {
 
     for n := l.head; n != nil; n = n.next {
         out = append(out, n.data)
@@ -66,7 +66,7 @@ func (l *List) Values() (out []interface{}) {
     return
 }
 
-func (l *List) ForEach(f ...func(...interface{}) (int, error)) {
+func (l *DoublyLinkedList) ForEach(f ...func(...interface{}) (int, error)) {
 
     if len(f) != 0 {
         for n := l.head; n != nil; n = n.next {
@@ -79,7 +79,7 @@ func (l *List) ForEach(f ...func(...interface{}) (int, error)) {
     }
 }
 
-func (l *List) ForEach2(format ...string) {
+func (l *DoublyLinkedList) ForEach2(format ...string) {
     f := ""
     if len(format) > 0 {
         f = format[0]
@@ -110,7 +110,7 @@ func (l *List) ForEach2(format ...string) {
     }
 }
 
-func (l *List) String() (out string) {
+func (l *DoublyLinkedList) String() (out string) {
 
     var builder strings.Builder
     builder.WriteString("[")
@@ -124,28 +124,28 @@ func (l *List) String() (out string) {
     return
 }
 
-func (l *List) Repr() (out string) {
+func (l *DoublyLinkedList) Repr() (out string) {
     // TO DO
 
     return
 }
 
-func (l *List) Len() int {
+func (l *DoublyLinkedList) Len() int {
     return l.size
 }
 
-func (l *List) IsEmpty() bool {
+func (l *DoublyLinkedList) IsEmpty() bool {
     return l.size == 0
 }
 
-func (l *List) Clear() {
+func (l *DoublyLinkedList) Clear() {
 
     l.size = 0
     l.head = nil
     l.tail = nil
 }
 
-func (l *List) ClearOld() {
+func (l *DoublyLinkedList) ClearOld() {
 
     n := l.Back()
     for n != nil {
@@ -158,18 +158,18 @@ func (l *List) ClearOld() {
     l.tail = nil
 }
 
-func (l *List) Add(values ...interface{}) {
+func (l *DoublyLinkedList) Add(values ...interface{}) {
 
     for _, value := range values {
         l.PushBack(value)
     }
 }
 
-func (l *List) Append(values ...interface{}) {
+func (l *DoublyLinkedList) Append(values ...interface{}) {
     l.Add(values...)
 }
 
-func (l *List) Prepend(values ...interface{}) {
+func (l *DoublyLinkedList) Prepend(values ...interface{}) {
 
     at := l.PushFront(values[0])
 
@@ -179,7 +179,7 @@ func (l *List) Prepend(values ...interface{}) {
 
 }
 
-func (l *List) SwapValue(i, j *Node) bool {
+func (l *DoublyLinkedList) SwapValue(i, j *Node) bool {
 
     if i == nil || i.list != l || j == nil || j.list != l {
         return false
@@ -193,41 +193,41 @@ func (l *List) SwapValue(i, j *Node) bool {
 
 }
 
-func (l *List) ReplaceValue(n *Node, v interface{}) {
+func (l *DoublyLinkedList) ReplaceValue(n *Node, v interface{}) {
     n.data = v
 }
 
-func (l *List) PushBackList(other *List) {
+func (l *DoublyLinkedList) PushBackList(other *DoublyLinkedList) {
 
     for n := other.Front(); n != nil; n = n.Next() {
         l.PushBack(n.data)
     }
 }
 
-func (l *List) PushFrontList(other *List) {
+func (l *DoublyLinkedList) PushFrontList(other *DoublyLinkedList) {
 
     for n := other.Back(); n != nil; n = n.Prev() {
         l.PushFront(n.data)
     }
 }
 
-func (l *List) Back() *Node {
+func (l *DoublyLinkedList) Back() *Node {
     return l.tail
 }
 
-func (l *List) Front() *Node {
+func (l *DoublyLinkedList) Front() *Node {
     return l.head
 }
 
-func (l *List) First() *Node {
+func (l *DoublyLinkedList) First() *Node {
     return l.head
 }
 
-func (l *List) Last() *Node {
+func (l *DoublyLinkedList) Last() *Node {
     return l.tail
 }
 
-func (l *List) Find(v interface{}) *Node {
+func (l *DoublyLinkedList) Find(v interface{}) *Node {
     for n := l.head; n != nil; n = n.next {
         if n.data == v {
             return n
@@ -236,7 +236,7 @@ func (l *List) Find(v interface{}) *Node {
     return nil
 }
 
-func (l *List) FindAll(v interface{}) []*Node {
+func (l *DoublyLinkedList) FindAll(v interface{}) []*Node {
     nodes := make([]*Node, 0, 1)
     for n := l.head; n != nil; n = n.next {
         if n.data == v {
@@ -246,12 +246,12 @@ func (l *List) FindAll(v interface{}) []*Node {
     return nodes
 }
 
-func (l *List) Has(v interface{}) bool {
+func (l *DoublyLinkedList) Has(v interface{}) bool {
 
     return l.Find(v) != nil
 }
 
-func (l *List) PushBack(data interface{}) (out *Node) {
+func (l *DoublyLinkedList) PushBack(data interface{}) (out *Node) {
 
     if data == nil {
         return nil
@@ -263,7 +263,7 @@ func (l *List) PushBack(data interface{}) (out *Node) {
     return
 }
 
-func (l *List) PushFront(data interface{}) (out *Node) {
+func (l *DoublyLinkedList) PushFront(data interface{}) (out *Node) {
 
     if data == nil {
         return nil
@@ -275,7 +275,7 @@ func (l *List) PushFront(data interface{}) (out *Node) {
     return
 }
 
-func (l *List) InsertAfter(data interface{}, mark *Node) (out *Node) {
+func (l *DoublyLinkedList) InsertAfter(data interface{}, mark *Node) (out *Node) {
 
     if mark == nil || mark.list != l {
         return nil
@@ -289,7 +289,7 @@ func (l *List) InsertAfter(data interface{}, mark *Node) (out *Node) {
     return
 }
 
-func (l *List) InsertBefore(data interface{}, mark *Node) (out *Node) {
+func (l *DoublyLinkedList) InsertBefore(data interface{}, mark *Node) (out *Node) {
 
     if mark == nil || mark.list != l {
         return nil
@@ -303,7 +303,7 @@ func (l *List) InsertBefore(data interface{}, mark *Node) (out *Node) {
     return
 }
 
-func (l *List) MoveAfter(node, mark *Node) bool {
+func (l *DoublyLinkedList) MoveAfter(node, mark *Node) bool {
 
     if node == nil || mark == nil || l.size <= 1 {
         return false
@@ -316,7 +316,7 @@ func (l *List) MoveAfter(node, mark *Node) bool {
     return l.move(node, mark, "after")
 }
 
-func (l *List) MoveBefore(node, mark *Node) bool {
+func (l *DoublyLinkedList) MoveBefore(node, mark *Node) bool {
 
     if node == nil || mark == nil || l.size <= 1 {
         return false
@@ -329,7 +329,7 @@ func (l *List) MoveBefore(node, mark *Node) bool {
     return l.move(node, mark, "before")
 }
 
-func (l *List) MoveToBack(node *Node) bool {
+func (l *DoublyLinkedList) MoveToBack(node *Node) bool {
 
     if node == nil || node.list != l || node == l.tail {
         return false
@@ -343,7 +343,7 @@ func (l *List) MoveToBack(node *Node) bool {
     return true
 }
 
-func (l *List) MoveToFront(node *Node) bool {
+func (l *DoublyLinkedList) MoveToFront(node *Node) bool {
 
     if node == nil || node.list != l || node == l.head {
         return false
@@ -357,7 +357,7 @@ func (l *List) MoveToFront(node *Node) bool {
     return true
 }
 
-func (l *List) Remove(v interface{}) bool {
+func (l *DoublyLinkedList) Remove(v interface{}) bool {
     out := l.Find(v)
     if out != nil {
         l.remove(out)
@@ -366,25 +366,25 @@ func (l *List) Remove(v interface{}) bool {
     return false
 }
 
-func (l *List) RemoveFront() {
+func (l *DoublyLinkedList) RemoveFront() {
     l.remove(l.head)
 }
 
-func (l *List) RemoveBack() {
+func (l *DoublyLinkedList) RemoveBack() {
     l.remove(l.tail)
 }
 
-func (l *List) RemoveFirst() {
+func (l *DoublyLinkedList) RemoveFirst() {
     l.remove(l.head)
 }
 
-func (l *List) RemoveLast() {
+func (l *DoublyLinkedList) RemoveLast() {
     l.remove(l.tail)
 }
 
 /*
 // incorrect version
-func (l *List) Bad_RemoveAll(v interface{}) int {
+func (l *DoublyLinkedList) Bad_RemoveAll(v interface{}) int {
     var count int
     for n := l.head; n != nil; n = n.next {
         if n.data == v {
@@ -396,7 +396,7 @@ func (l *List) Bad_RemoveAll(v interface{}) int {
 }
 */
 
-func (l *List) RemoveAll(v interface{}) int {
+func (l *DoublyLinkedList) RemoveAll(v interface{}) int {
     var count int
     nodes := l.FindAll(v)
     for _, n := range nodes {
@@ -406,13 +406,13 @@ func (l *List) RemoveAll(v interface{}) int {
     return count
 }
 
-func (l *List) RemoveNode(node *Node) {
+func (l *DoublyLinkedList) RemoveNode(node *Node) {
     if node != nil && node.list == l {
         l.remove(node)
     }
 }
 
-func (l *List) Reverse2() {
+func (l *DoublyLinkedList) Reverse2() {
     var prev *Node
     var n *Node = l.head
     l.tail = l.head
@@ -429,7 +429,7 @@ func (l *List) Reverse2() {
     }
 }
 
-func (l *List) Reverse() {
+func (l *DoublyLinkedList) Reverse() {
     var prev *Node
     l.tail = l.head
 
@@ -444,7 +444,7 @@ func (l *List) Reverse() {
     }
 }
 
-func (l *List) push(node *Node, position string) {
+func (l *DoublyLinkedList) push(node *Node, position string) {
 
     if l.size == 0 {
         l.head = node
@@ -466,7 +466,7 @@ func (l *List) push(node *Node, position string) {
     l.size++
 }
 
-func (l *List) insert(node, mark *Node, position string) bool {
+func (l *DoublyLinkedList) insert(node, mark *Node, position string) bool {
 
     switch position {
 
@@ -500,12 +500,12 @@ func (l *List) insert(node, mark *Node, position string) bool {
     return true
 }
 
-func (l *List) remove(node *Node) {
+func (l *DoublyLinkedList) remove(node *Node) {
     l.unlink(node)
     l.delete(node)
 }
 
-func (l *List) unlink(node *Node) {
+func (l *DoublyLinkedList) unlink(node *Node) {
 
     // если узел - голова
     if node == l.head {
@@ -532,7 +532,7 @@ func (l *List) unlink(node *Node) {
     }
 }
 
-func (l *List) delete(node *Node) {
+func (l *DoublyLinkedList) delete(node *Node) {
 
     node.next = nil
     node.prev = nil
@@ -541,7 +541,7 @@ func (l *List) delete(node *Node) {
     l.size--
 }
 
-func (l *List) move(node, mark *Node, position string) (out bool) {
+func (l *DoublyLinkedList) move(node, mark *Node, position string) (out bool) {
 
     l.unlink(node)
     out = l.insert(node, mark, position)
