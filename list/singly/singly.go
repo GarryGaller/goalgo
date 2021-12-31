@@ -108,6 +108,7 @@ func (l *LinkedList) PushFront(value interface{}) {
      node := &Node{value:value}
      node.next = l.head
      l.head = node
+     l.size++
 }
 
 
